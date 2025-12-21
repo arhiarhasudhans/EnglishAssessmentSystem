@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - English Assessment System</title>
     <style>
-
         /* Root variables for our new color scheme */
         :root {
             --bg-gradient-start: #dafbff;
@@ -31,19 +31,19 @@
             box-sizing: border-box;
             font-family: var(--font-family);
         }
-        
+
         body {
             background-image: linear-gradient(120deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
             min-height: 100vh;
             color: var(--text-primary);
         }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 25px;
         }
-        
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -55,12 +55,12 @@
             margin-bottom: 30px;
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
         }
-        
+
         .logo-icon {
             width: 45px;
             height: 45px;
@@ -80,34 +80,34 @@
         .logo:hover .logo-icon {
             transform: rotate(0deg) scale(1.1);
         }
-        
+
         .logo-text h1 {
             color: var(--text-primary);
             font-size: 22px;
             font-weight: 600;
         }
-        
+
         .logo-text p {
             color: var(--text-secondary);
             font-size: 13px;
         }
-        
+
         .user-nav {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
+
         .user-info {
             text-align: right;
         }
-        
+
         .user-name {
             font-weight: 600;
             color: var(--text-primary);
             font-size: 15px;
         }
-        
+
         .user-role {
             color: var(--text-secondary);
             font-size: 12px;
@@ -124,18 +124,18 @@
             font-weight: 500;
             transition: all 0.3s ease;
         }
-        
+
         .logout-btn:hover {
             background-color: #fef3f2;
             color: var(--danger-color);
             border-color: #fecdca;
         }
-        
+
         .content {
             display: flex;
             gap: 30px;
         }
-        
+
         .sidebar {
             width: 260px;
             background: var(--card-bg);
@@ -145,7 +145,7 @@
             height: fit-content;
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        
+
         .sidebar-title {
             font-size: 14px;
             font-weight: 600;
@@ -154,7 +154,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
+
         .menu-item {
             display: flex;
             align-items: center;
@@ -169,7 +169,7 @@
             transition: all 0.3s ease;
             position: relative;
         }
-        
+
         .menu-item::before {
             content: attr(data-icon);
             font-size: 20px;
@@ -180,30 +180,30 @@
             background-color: rgba(106, 17, 203, 0.1);
             color: var(--primary-gradient-start);
         }
-        
+
         .menu-item.active {
             background-image: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
             color: white;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         .main-content {
             flex: 1;
         }
-        
+
         .page-title {
             font-size: 32px;
             color: var(--text-primary);
             margin-bottom: 8px;
             font-weight: 700;
         }
-        
+
         .page-description {
             color: var(--text-secondary);
             font-size: 16px;
             margin-bottom: 30px;
         }
-        
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -212,7 +212,7 @@
             margin-bottom: 30px;
         }
 
-        
+
         .stat-card {
             background: var(--card-bg);
             border-radius: 12px;
@@ -240,14 +240,14 @@
             color: var(--primary-gradient-start);
             opacity: 0.1;
         }
-        
+
         /* CORRECTED CSS: Fixes vendor prefix warnings and adds fallback */
         .stat-value {
             font-size: 42px;
             font-weight: 700;
             margin-bottom: 2px;
             /* 1. Fallback: A solid color for browsers that don't support the gradient effect. */
-            color: var(--primary-gradient-start); 
+            color: var(--primary-gradient-start);
             /* 2. Gradient Background: Use the standard syntax first. */
             background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
             /* 3. Clip the background to the text. Include the -webkit- prefix for older browser compatibility. */
@@ -256,13 +256,13 @@
             /* 4. Make the text color transparent so the background shows through. */
             -webkit-text-fill-color: transparent;
         }
-        
+
         .stat-label {
             color: var(--text-secondary);
             font-size: 15px;
             font-weight: 500;
         }
-        
+
         .card {
             background: var(--card-bg);
             border-radius: 12px;
@@ -271,7 +271,7 @@
             margin-bottom: 30px;
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        
+
         .card-title {
             font-size: 20px;
             color: var(--text-primary);
@@ -283,18 +283,19 @@
             align-items: center;
             font-weight: 600;
         }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        
-        th, td {
+
+        th,
+        td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid var(--border-color);
         }
-        
+
         th {
             font-weight: 600;
             color: var(--text-secondary);
@@ -302,7 +303,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
+
         td {
             color: var(--text-primary);
             font-size: 15px;
@@ -316,11 +317,11 @@
         tbody tr:hover {
             background-color: rgba(230, 230, 250, 0.5);
         }
-        
+
         tr:last-child td {
             border-bottom: none;
         }
-        
+
         .action-btn {
             background-image: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
             color: white;
@@ -335,21 +336,21 @@
             display: inline-block;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         .action-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
         }
-        
+
         .action-btn.danger {
             background-image: none;
             background-color: var(--danger-color);
         }
-        
+
         .action-btn.danger:hover {
             background-color: var(--danger-hover);
         }
-        
+
         .action-btn.outline {
             background: transparent;
             border: 1px solid var(--primary-gradient-start);
@@ -357,19 +358,19 @@
             background-image: none;
             box-shadow: none;
         }
-        
+
         .action-btn.outline:hover {
             background-color: rgba(106, 17, 203, 0.1);
             transform: none;
             box-shadow: none;
         }
-        
+
         .search-form {
             display: flex;
             margin-bottom: 25px;
             position: relative;
         }
-        
+
         .search-form::before {
             content: '🔍';
             position: absolute;
@@ -382,28 +383,30 @@
 
         .search-input {
             flex: 1;
-            padding: 12px 15px 12px 45px; /* Added left padding for icon */
+            padding: 12px 15px 12px 45px;
+            /* Added left padding for icon */
             border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 15px;
             background-color: #fff;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
         .search-input:focus {
             outline: none;
             border-color: var(--primary-gradient-end);
             box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.2);
         }
-        
+
         .search-btn {
             display: none;
         }
-        
+
         @media (max-width: 992px) {
             .content {
                 flex-direction: column;
             }
+
             .sidebar {
                 width: 100%;
                 margin-bottom: 20px;
@@ -419,6 +422,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header class="header">
@@ -438,20 +442,21 @@
                 <button class="logout-btn" id="logout-btn">Logout</button>
             </nav>
         </header>
-        
+
         <div class="content">
             <aside class="sidebar">
                 <h3 class="sidebar-title">Navigation</h3>
                 <!-- REMOVED: Extra management pages removed for simplicity as requested -->
                 <a href="/admin/dashboard.html" class="menu-item active" data-icon="📊">Dashboard</a>
             </aside>
-            
+
             <main class="main-content">
                 <h1 class="page-title">Admin Dashboard</h1>
-                <p class="page-description">Welcome! Monitor key metrics and manage system users from this central hub.</p>
-                
+                <p class="page-description">Welcome! Monitor key metrics and manage system users from this central hub.
+                </p>
+
                 <div class="stats-grid">
-                    
+
                     <div class="stat-card" data-icon="👨‍🏫">
                         <div class="stat-value" id="total-faculty">0</div>
                         <div class="stat-label">Total Faculty</div>
@@ -460,16 +465,51 @@
                         <div class="stat-value" id="total-students">0</div>
                         <div class="stat-label">Total Students</div>
                     </div>
-                    
+
                 </div>
-                
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Bulk User Upload</h3>
+                        <a href="/templates/user_upload_template.xlsx" download class="action-btn"
+                            style="float: right; font-size: 0.9em;">Download Template</a>
+                    </div>
+                    <div style="display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap;">
+                        <form id="bulk-upload-form"
+                            style="display: flex; gap: 15px; align-items: flex-end; width: 100%; flex-wrap: wrap;">
+                            <div style="flex: 2; min-width: 250px;">
+                                <label
+                                    style="display: block; margin-bottom: 5px; color: var(--text-secondary); font-size: 14px;">Select
+                                    Excel File</label>
+                                <input type="file" id="bulk-file" accept=".xlsx, .xls" required
+                                    style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 6px;">
+                            </div>
+                            <div>
+                                <label
+                                    style="display: block; margin-bottom: 5px; color: var(--text-secondary); font-size: 14px;">User
+                                    Type</label>
+                                <select id="bulk-type"
+                                    style="padding: 10px; border: 1px solid var(--border-color); border-radius: 6px;">
+                                    <option value="student">Students</option>
+                                    <option value="faculty">Faculty</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button type="submit" class="action-btn">Upload & Create</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="bulk-message" style="margin-top: 15px; font-size: 14px;"></div>
+                </div>
+
                 <div class="card">
                     <div class="card-title">
                         <span>Faculty Accounts Overview</span>
                         <button class="action-btn" onclick="addfaculty()">+ Add Faculty</button>
                     </div>
                     <div class="search-form">
-                        <input type="text" id="faculty-search-input" class="search-input" placeholder="Search faculty by name or department...">
+                        <input type="text" id="faculty-search-input" class="search-input"
+                            placeholder="Search faculty by name or department...">
                     </div>
                     <table>
                         <thead>
@@ -480,18 +520,21 @@
                             </tr>
                         </thead>
                         <tbody id="faculty-table-body">
-                           <tr><td colspan="3" style="text-align:center;">Loading...</td></tr>
+                            <tr>
+                                <td colspan="3" style="text-align:center;">Loading...</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
- 
+
                 <div class="card">
                     <div class="card-title">
                         <span>Student Accounts Overview</span>
                         <button class="action-btn" onclick="addstudent()">+ Add Student</button>
                     </div>
                     <div class="search-form">
-                        <input type="text" id="student-search-input" class="search-input" placeholder="Search students by name, email, or ID...">
+                        <input type="text" id="student-search-input" class="search-input"
+                            placeholder="Search students by name, email, or ID...">
                     </div>
                     <table>
                         <thead>
@@ -503,7 +546,9 @@
                             </tr>
                         </thead>
                         <tbody id="student-table-body">
-                            <tr><td colspan="4" style="text-align: center;">Loading students...</td></tr>
+                            <tr>
+                                <td colspan="4" style="text-align: center;">Loading students...</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -511,20 +556,20 @@
             </main>
         </div>
     </div>
-    
+
     <script>
         // Check authentication when page loads
-        window.onload = function() {
+        window.onload = function () {
             // Check if admin is logged in
             if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
                 window.location.href = '/admin/login.html';
                 return;
             }
-            
+
             // Update admin name
             document.getElementById('admin-name').textContent = sessionStorage.getItem('adminName') || 'Administrator';
             document.getElementById('admin-role').textContent = sessionStorage.getItem('adminRole') || 'System Administrator';
-            
+
             // Load dashboard data
             loadDashboardData();
 
@@ -532,9 +577,49 @@
             document.getElementById('faculty-search-input').addEventListener('keyup', searchFaculty);
             document.getElementById('student-search-input').addEventListener('keyup', searchStudents);
 
+            // Bulk Upload Handler
+            document.getElementById('bulk-upload-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const fileInput = document.getElementById('bulk-file');
+                const typeSelect = document.getElementById('bulk-type');
+                const msg = document.getElementById('bulk-message');
+
+                if (!fileInput.files[0]) return;
+
+                const formData = new FormData();
+                formData.append('file', fileInput.files[0]);
+                formData.append('type', typeSelect.value);
+
+                msg.textContent = 'Uploading...';
+                msg.style.color = 'blue';
+
+                try {
+                    const res = await fetch('/api/admin/upload/users', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await res.json();
+
+                    if (data.success) {
+                        msg.textContent = data.message;
+                        msg.style.color = 'green';
+                        fileInput.value = ''; // Reset
+                        // Refresh lists
+                        fetchStudents();
+                        fetchFaculty();
+                    } else {
+                        msg.innerHTML = data.message + (data.errors ? '<br>' + data.errors.join('<br>') : '');
+                        msg.style.color = 'red';
+                    }
+                } catch (err) {
+                    msg.textContent = 'Upload failed: ' + err.message;
+                    msg.style.color = 'red';
+                }
+            });
+
             // Enhanced logout functionality
-            document.getElementById('logout-btn').addEventListener('click', async function(e) {
-                e.preventDefault(); 
+            document.getElementById('logout-btn').addEventListener('click', async function (e) {
+                e.preventDefault();
                 const logoutBtn = this;
                 const originalText = logoutBtn.textContent;
                 logoutBtn.textContent = 'Logging out...';
@@ -565,7 +650,7 @@
                 }
             });
         };
-        
+
         function clearAllAuthData() {
             try {
                 sessionStorage.clear();
@@ -590,7 +675,7 @@
             if (parts.length === 2) return decodeURIComponent(parts.pop().split(';').shift());
             return null;
         }
-        
+
         function addstudent() {
             window.location.href = "/student/registration.html";
         }
@@ -598,7 +683,7 @@
         function addfaculty() {
             window.location.href = "/faculty/registration.html";
         }
-        
+
         function loadDashboardData() {
             fetchFaculty();
             fetchStudents();
@@ -608,7 +693,7 @@
 
         let allStudents = [];
         let allFaculty = [];
-        
+
         function fetchStudents() {
             fetch('/api/admin/students')
                 .then(response => {
@@ -651,9 +736,9 @@
 
         function searchStudents() {
             const searchTerm = document.getElementById('student-search-input').value.toLowerCase();
-            const filteredStudents = allStudents.filter(student => 
-                student.full_name.toLowerCase().includes(searchTerm) || 
-                student.email.toLowerCase().includes(searchTerm) || 
+            const filteredStudents = allStudents.filter(student =>
+                student.full_name.toLowerCase().includes(searchTerm) ||
+                student.email.toLowerCase().includes(searchTerm) ||
                 (student.student_id && student.student_id.toLowerCase().includes(searchTerm))
             );
             displayStudents(filteredStudents);
@@ -700,8 +785,8 @@
 
         function searchFaculty() {
             const searchTerm = document.getElementById('faculty-search-input').value.toLowerCase();
-            const filteredFaculty = allFaculty.filter(member => 
-                member.full_name.toLowerCase().includes(searchTerm) || 
+            const filteredFaculty = allFaculty.filter(member =>
+                member.full_name.toLowerCase().includes(searchTerm) ||
                 member.department.toLowerCase().includes(searchTerm)
             );
             displayFaculty(filteredFaculty);
@@ -759,4 +844,5 @@
         }
     </script>
 </body>
+
 </html>

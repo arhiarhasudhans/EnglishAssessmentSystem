@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,127 +23,168 @@
             --border-color: #e0e0e0;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Arial', sans-serif; }
-        
-        body { 
-            background-color: var(--bg-light); 
-            min-height: 100vh; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Arial', sans-serif;
         }
-        
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        
-        .header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 15px 0; 
+
+        body {
+            background-color: var(--bg-light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 30px;
         }
-        
-        .logo { display: flex; align-items: center; }
-        
-        .logo-icon { 
-            width: 45px; 
-            height: 45px; 
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
             background: var(--primary-gradient);
-            border-radius: 12px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            margin-right: 15px; 
-            color: white; 
-            font-size: 20px; 
-            font-weight: bold; 
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
             box-shadow: 0 4px 10px rgba(102, 126, 234, 0.5);
         }
-        
-        .logo-text h1 { 
+
+        .logo-text h1 {
             color: var(--primary-purple-dark);
-            font-size: 22px; 
+            font-size: 22px;
             margin-bottom: 0;
             font-weight: 700;
         }
-        
-        .logo-text p { color: var(--text-light); font-size: 12px; }
-        
-        .user-nav { display: flex; align-items: center; }
-        .user-info { margin-right: 20px; text-align: right; }
-        .user-name { font-weight: 600; color: var(--text-dark); font-size: 15px; }
-        .user-role { color: var(--text-light); font-size: 12px; }
-        
-        .logout-btn { 
-            background-color: transparent; 
-            border: 1px solid #d0d0d0; 
-            color: var(--text-light); 
-            padding: 8px 15px; 
-            border-radius: 20px; /* Pill shape */
-            cursor: pointer; 
-            font-size: 14px; 
-            font-weight: 600;
-            transition: all 0.3s ease; 
+
+        .logo-text p {
+            color: var(--text-light);
+            font-size: 12px;
         }
-        
-        .logout-btn:hover { 
+
+        .user-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info {
+            margin-right: 20px;
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 15px;
+        }
+
+        .user-role {
+            color: var(--text-light);
+            font-size: 12px;
+        }
+
+        .logout-btn {
+            background-color: transparent;
+            border: 1px solid #d0d0d0;
+            color: var(--text-light);
+            padding: 8px 15px;
+            border-radius: 20px;
+            /* Pill shape */
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
             background-color: var(--accent-orange);
             color: white;
             border-color: var(--accent-orange);
         }
-        
-        .logout-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-        
-        .content { display: flex; gap: 30px; }
-        
-        .sidebar { 
-            width: 250px; 
-            background: var(--card-bg); 
-            padding: 20px; 
-            border-radius: 15px; 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
-            height: fit-content; 
+
+        .logout-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
-        
-        .sidebar-title { 
-            font-size: 18px; 
+
+        .content {
+            display: flex;
+            gap: 30px;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+
+        .sidebar-title {
+            font-size: 18px;
             color: var(--primary-purple-dark);
-            margin-bottom: 20px; 
-            padding-bottom: 10px; 
+            margin-bottom: 20px;
+            padding-bottom: 10px;
             border-bottom: 1px solid var(--border-color);
             font-weight: 600;
         }
-        
-        .menu-item { 
-            display: block; 
-            padding: 14px 20px; 
-            border-radius: 10px; 
-            color: #555; 
-            text-decoration: none; 
-            font-size: 15px; 
-            margin-bottom: 8px; 
+
+        .menu-item {
+            display: block;
+            padding: 14px 20px;
+            border-radius: 10px;
+            color: #555;
+            text-decoration: none;
+            font-size: 15px;
+            margin-bottom: 8px;
             transition: all 0.3s ease;
             font-weight: 600;
         }
-        
-        .menu-item:hover { 
-            background-color: #f3e5f5; /* Light purple */
+
+        .menu-item:hover {
+            background-color: #f3e5f5;
+            /* Light purple */
             color: var(--primary-purple-dark);
             transform: translateX(5px);
         }
-        
-        .menu-item.active { 
+
+        .menu-item.active {
             background: var(--primary-gradient);
-            color: white; 
+            color: white;
             box-shadow: 0 4px 15px -5px rgba(102, 126, 234, 0.7);
             transform: translateX(5px);
         }
-        
-        .main-content { flex: 1; }
-        
-        .card { 
-            background-color: var(--card-bg); 
-            border-radius: 15px; 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
-            padding: 30px; 
+
+        .main-content {
+            flex: 1;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            padding: 30px;
             border-top: 5px solid;
             border-image-slice: 1;
             border-width: 5px;
@@ -152,20 +194,24 @@
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
         }
-        
-        table { width: 100%; border-collapse: collapse; }
-        
-        th, td { 
-            padding: 15px; 
-            text-align: left; 
-            border-bottom: 1px solid #f0f0f0; 
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        
-        th { 
-            color: var(--primary-purple); 
-            font-weight: 700; 
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        th {
+            color: var(--primary-purple);
+            font-weight: 700;
             font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -175,52 +221,73 @@
             color: var(--text-light);
             font-size: 14px;
         }
-        
-        tr:last-child td { border-bottom: none; }
-        
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
         tr:hover {
             background-color: #faf7ff;
         }
-        
-        .page-title { 
-            font-size: 28px; 
+
+        .page-title {
+            font-size: 28px;
             color: var(--primary-purple-dark);
-            margin-bottom: 10px; 
+            margin-bottom: 10px;
             font-weight: 700;
         }
-        
-        .page-description { 
-            color: var(--text-light); 
-            font-size: 15px; 
-            margin-bottom: 30px; 
+
+        .page-description {
+            color: var(--text-light);
+            font-size: 15px;
+            margin-bottom: 30px;
         }
-        
-        .action-btn { 
+
+        .action-btn {
             background: var(--primary-purple);
-            color: white; 
-            border: none; 
-            padding: 10px 20px; 
-            border-radius: 8px; 
-            font-size: 14px; 
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
             font-weight: 600;
-            cursor: pointer; 
-            text-decoration: none; 
-            display: inline-block; 
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
             transition: all 0.3s ease;
         }
-        
-        .action-btn:hover { 
+
+        .action-btn:hover {
             background: var(--primary-purple-dark);
             transform: translateY(-2px);
             box-shadow: 0 5px 10px rgba(94, 53, 177, 0.3);
         }
-        
-        .logout-spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.5); border-top-color: white; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 5px; }
-        
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .logout-spinner {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 5px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
         /* --- END OF NEW CREATIVE STYLES --- */
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -239,7 +306,7 @@
                 <button class="logout-btn" id="logout-btn">Logout</button>
             </div>
         </div>
-        
+
         <div class="content">
             <div class="sidebar">
                 <h2 class="sidebar-title">Navigation</h2>
@@ -248,11 +315,12 @@
                 <a href="/faculty/assessment-results.html" class="menu-item active">View Results</a>
                 <a href="/faculty/student-report.html" class="menu-item">Student Reports</a>
             </div>
-            
+
             <div class="main-content">
                 <h1 class="page-title">All Assessment Results</h1>
-                <p class="page-description">Select an assessment to view detailed results for all students who completed it.</p>
-                
+                <p class="page-description">Select an assessment to view detailed results for all students who completed
+                    it.</p>
+
                 <div class="card">
                     <table>
                         <thead>
@@ -274,7 +342,7 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         // --- START OF AUTHENTICATION AND PAGE SETUP SCRIPT ---
         let isLoggedOut = false;
@@ -316,7 +384,7 @@
                 document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
             });
         }
-        
+
         function getAuthToken() {
             return sessionStorage.getItem('authToken') || sessionStorage.getItem('facultyToken') || localStorage.getItem('authToken') || localStorage.getItem('facultyToken') || getCookie('authToken') || getCookie('facultyToken');
         }
@@ -353,7 +421,9 @@
         async function loadAllAssessmentResults() {
             const tableBody = document.getElementById('results-summary-table');
             try {
-                const response = await fetch('/api/assessment/results/summary');
+                const session = checkAuthentication();
+                const facultyId = session ? session.id : '';
+                const response = await fetch(`/api/faculty/summary?facultyId=${facultyId}`);
                 const data = await response.json();
                 if (!data.success) throw new Error(data.message);
 
@@ -379,21 +449,21 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const facultyData = checkAuthentication();
             if (!facultyData) return;
 
             loadFacultyInfo(facultyData);
             setupAuthCheck();
             document.getElementById('logout-btn').addEventListener('click', performLogout);
-            
+
             loadAllAssessmentResults();
         });
-        
+
         // Event listeners for auth check
         window.addEventListener('pageshow', (event) => {
             if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
-                if(!checkAuthentication()) return;
+                if (!checkAuthentication()) return;
                 window.location.reload();
             }
         });
@@ -403,4 +473,5 @@
         window.addEventListener('beforeunload', () => clearInterval(authCheckInterval));
     </script>
 </body>
+
 </html>

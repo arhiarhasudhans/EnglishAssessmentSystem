@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,7 @@
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
-        
+
         body {
             background-color: #f0f4ff;
             min-height: 100vh;
@@ -22,7 +23,7 @@
             place-items: center;
             padding: 20px;
         }
-        
+
         .page-container {
             display: flex;
             width: 100%;
@@ -54,32 +55,32 @@
             flex-direction: column;
             justify-content: center;
         }
-        
+
         .logo {
             text-align: left;
             margin-bottom: 25px;
         }
-        
+
         .logo h1 {
             color: #3a55a3;
             font-size: 28px;
             font-weight: 700;
             margin-bottom: 5px;
         }
-        
+
         .logo p {
             color: #666;
             font-size: 15px;
         }
-        
+
         .login-form {
             width: 100%;
         }
-        
+
         .form-group {
             margin-bottom: 20px;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
@@ -87,7 +88,7 @@
             font-size: 14px;
             font-weight: 600;
         }
-        
+
         .form-group input {
             width: 100%;
             padding: 12px 15px;
@@ -96,13 +97,13 @@
             font-size: 14px;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
-        
+
         .form-group input:focus {
             outline: none;
             border-color: #3a55a3;
             box-shadow: 0 0 0 3px rgba(58, 85, 163, 0.1);
         }
-        
+
         .login-btn {
             width: 100%;
             background: linear-gradient(90deg, #4a69bd, #3a55a3);
@@ -115,12 +116,12 @@
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.3s;
         }
-        
+
         .login-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(58, 85, 163, 0.3);
         }
-        
+
         .back-link {
             display: inline-block;
             margin-top: 25px;
@@ -128,12 +129,12 @@
             text-decoration: none;
             font-size: 14px;
         }
-        
+
         .back-link:hover {
             color: #3a55a3;
             text-decoration: underline;
         }
-        
+
         .error-message {
             color: #d9534f;
             background-color: #fdeaea;
@@ -145,13 +146,13 @@
             text-align: center;
             display: none;
         }
-        
+
         .loader {
             display: none;
             text-align: center;
             margin-top: 15px;
         }
-        
+
         .loader-spinner {
             border: 3px solid #f3f3f3;
             border-top: 3px solid #3a55a3;
@@ -161,41 +162,52 @@
             animation: spin 1s linear infinite;
             margin: 0 auto;
         }
-        
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        
+
         @media (max-width: 850px) {
             .page-container {
                 flex-direction: column;
             }
+
             .illustration-container {
-                display: none; /* Hide illustration on smaller screens to focus on the form */
+                display: none;
+                /* Hide illustration on smaller screens to focus on the form */
             }
+
             .login-container {
                 padding: 30px;
             }
         }
-        
+
         @media (max-width: 480px) {
             body {
                 padding: 0;
             }
+
             .page-container {
                 border-radius: 0;
                 box-shadow: none;
                 min-height: 100vh;
             }
+
             .login-container {
                 justify-content: center;
             }
         }
     </style>
 </head>
+
 <body>
-    
+
     <div class="page-container">
         <!-- Illustration Section -->
         <div class="illustration-container">
@@ -212,118 +224,108 @@
                 <h1>Assessment Portal</h1>
                 <p>Please log in to begin.</p>
             </div>
-            
+
             <form class="login-form" id="loginForm">
                 <div class="form-group">
                     <label for="studentId">Student ID</label>
                     <input type="text" id="studentId" name="studentId" placeholder="Enter your student ID" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="Enter your password" required>
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="assessmentCode">Assessment Code</label>
-                    <input type="text" id="assessmentCode" name="assessmentCode" placeholder="Enter the assessment code" required>
+                    <label for="assessmentCode">Assessment Code (Optional)</label>
+                    <input type="text" id="assessmentCode" name="assessmentCode"
+                        placeholder="Enter code (or blank to go to dashboard)">
                 </div>
-                
+
                 <button type="submit" class="login-btn">Start Assessment</button>
-                
+
                 <div class="loader" id="loader">
                     <div class="loader-spinner"></div>
                 </div>
-                
+
                 <div class="error-message" id="errorMessage"></div>
             </form>
-            
+
             <a href="/" class="back-link">← Back to main page</a>
         </div>
     </div>
 
     <script>
-        // --- ALL JAVASCRIPT LOGIC IS PRESERVED AND UNCHANGED ---
+        // --- UPDATED JAVASCRIPT LOGIC ---
 
         const API_BASE_URL = '/api';
         const loginForm = document.getElementById('loginForm');
         const errorMessage = document.getElementById('errorMessage');
         const loader = document.getElementById('loader');
-        
-        loginForm.addEventListener('submit', async function(e) {
+
+        loginForm.addEventListener('submit', async function (e) {
             e.preventDefault();
-            
-            // Hide any previous error message
+
             errorMessage.style.display = 'none';
-            
-            // Show loader
             loader.style.display = 'block';
-            
-            // Get form data
+
             const studentId = document.getElementById('studentId').value;
             const password = document.getElementById('password').value;
             const assessmentCode = document.getElementById('assessmentCode').value;
-            
+
             try {
-                // Make API request to authenticate student
                 const response = await fetch(`${API_BASE_URL}/student/login`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        studentId,
-                        password,
-                        assessmentCode
-                    })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ studentId, password, assessmentCode: assessmentCode || undefined })
                 });
-                
+
                 const data = await response.json();
-                
-                // Hide loader
                 loader.style.display = 'none';
-                
+
                 if (!response.ok) {
-                    // Show error message
                     errorMessage.textContent = data.message || 'Login failed. Please try again.';
                     errorMessage.style.display = 'block';
                     return;
                 }
-                
-                // Store student and assessment info in session storage
+
+                // Store student info
+                sessionStorage.setItem('loggedInStudent', JSON.stringify(data.student)); // For Auth.js
                 sessionStorage.setItem('studentId', data.student.studentId);
                 sessionStorage.setItem('studentName', data.student.fullName);
-                sessionStorage.setItem('assessmentId', data.assessment.id);
-                sessionStorage.setItem('assessmentTitle', data.assessment.title);
-                sessionStorage.setItem('assessmentDuration', data.assessment.duration);
-                sessionStorage.setItem('totalQuestions', data.assessment.totalQuestions);
-                sessionStorage.setItem('startTime', new Date().toISOString());
-                
-                // Redirect to quiz page
-                window.location.href = '/student/quiz.html';
-                
+                sessionStorage.setItem('authToken', data.token); // Store token if returned (assuming authController returns it)
+
+                // If assessment data returned (Direct connection flow)
+                if (data.assessment) {
+                    sessionStorage.setItem('assessmentId', data.assessment.id);
+                    sessionStorage.setItem('assessmentTitle', data.assessment.title);
+                    sessionStorage.setItem('assessmentDuration', data.assessment.duration);
+                    sessionStorage.setItem('totalQuestions', data.assessment.totalQuestions);
+                    sessionStorage.setItem('startTime', new Date().toISOString());
+                    window.location.href = '/student/quiz.html';
+                } else {
+                    // Redirect to dashboard
+                    window.location.href = '/student/dashboard.html';
+                }
+
             } catch (error) {
-                // Hide loader
                 loader.style.display = 'none';
-                
-                // Show error message
                 errorMessage.textContent = 'Server error. Please try again later.';
                 errorMessage.style.display = 'block';
                 console.error('Error logging in:', error);
             }
         });
-        
-        // Clear session storage when page loads (to ensure clean state)
-        window.addEventListener('load', function() {
+
+        window.addEventListener('load', function () {
             sessionStorage.clear();
         });
 
-        // Clear form fields whenever the page is shown, including on back-button navigation.
-        window.addEventListener('pageshow', function(event) {
+        window.addEventListener('pageshow', function (event) {
             loginForm.reset();
             errorMessage.style.display = 'none';
             loader.style.display = 'none';
         });
     </script>
 </body>
+
 </html>

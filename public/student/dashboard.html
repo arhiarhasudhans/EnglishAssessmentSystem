@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - English Assessment System</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/faculty.css"> <!-- Reusing faculty styles for consistency -->
+    <style>
+        .dashboard-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .action-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .action-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">EA</div>
+                <div class="logo-text">
+                    <h1>English Assessment</h1>
+                    <p>Student Portal</p>
+                </div>
+            </div>
+            <div class="user-nav">
+                <div class="user-info">
+                    <div class="user-name" id="student-name">Loading...</div>
+                    <div class="user-role">Student</div>
+                </div>
+                <button class="logout-btn" id="logout-btn">Logout</button>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="sidebar">
+                <h2 class="sidebar-title">Menu</h2>
+                <a href="/student/dashboard.html" class="menu-item active">Dashboard</a>
+                <a href="/student/profile.html" class="menu-item">My Profile</a>
+                <!-- <a href="/student/history.html" class="menu-item">History</a> -->
+            </div>
+
+            <div class="main-content">
+                <h1 class="page-title">Dashboard</h1>
+                <p class="page-description">Welcome to your assessment portal.</p>
+
+                <div class="dashboard-actions">
+                    <div class="action-card">
+                        <div class="action-icon">📝</div>
+                        <h3>Take Assessment</h3>
+                        <p style="margin-bottom: 20px; color: var(--text-secondary);">Enter the code provided by your
+                            instructor.</p>
+                        <form id="start-assessment-form">
+                            <input type="text" id="assessment-code" placeholder="Enter Assessment Code" required
+                                style="margin-bottom: 15px;">
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Start Assessment</button>
+                        </form>
+                    </div>
+
+                    <div class="action-card">
+                        <div class="action-icon">👤</div>
+                        <h3>My Profile</h3>
+                        <p style="margin-bottom: 20px; color: var(--text-secondary);">View and update your personal
+                            information.</p>
+                        <a href="/student/profile.html" class="btn btn-secondary"
+                            style="display: inline-block; width: 100%; box-sizing: border-box; text-align: center; text-decoration: none;">View
+                            Profile</a>
+                    </div>
+                </div>
+
+                <div class="card"
+                    style="margin-top: 30px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <h3 style="margin-bottom: 20px; color: var(--primary-color);">Assessment History</h3>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                        <thead>
+                            <tr style="background: #f8f9fa;">
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #dee2e6;">
+                                    Assessment</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #dee2e6;">Date</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #dee2e6;">Score
+                                </th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #dee2e6;">Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-table-body">
+                            <tr>
+                                <td colspan="4" style="text-align:center; padding: 20px;">Loading results...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/theme.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = checkAuthentication('student');
+            if (user) {
+                document.getElementById('student-name').textContent = user.fullName;
+                loadResults(user.studentId);
+            }
+
+            async function loadResults(studentId) {
+                try {
+                    const res = await fetch(`/api/student/${studentId}/results`);
+                    const data = await res.json();
+                    const tbody = document.getElementById('results-table-body');
+                    tbody.innerHTML = '';
+
+                    if (data && data.length > 0) {
+                        data.forEach(r => {
+                            const date = new Date(r.end_time).toLocaleDateString();
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td style="padding: 12px; border-bottom: 1px solid #dee2e6;">${r.title}</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #dee2e6;">${date}</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #dee2e6;">${r.score}%</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #dee2e6;">${r.completed ? 'Completed' : 'In Progress'}</td>
+                            `;
+                            tbody.appendChild(tr);
+                        });
+                    } else {
+                        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">No assessments taken yet.</td></tr>';
+                    }
+                } catch (e) {
+                    console.error(e);
+                    document.getElementById('results-table-body').innerHTML = '<tr><td colspan="4" style="text-align:center; color: red;">Error loading results.</td></tr>';
+                }
+            }
+
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) logoutBtn.addEventListener('click', () => performLogout('student'));
+
+            document.getElementById('start-assessment-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const code = document.getElementById('assessment-code').value;
+                const btn = e.target.querySelector('button');
+                btn.disabled = true;
+                btn.textContent = 'Verifying...';
+
+                try {
+                    // Verify code and get assessment details
+                    // We can use a new endpoint or reuse login if we change it?
+                    // Or call /api/assessment/verify/:code?
+                    // The old login did verify.
+                    // Let's assume we need to verify.
+                    // Creating a new endpoint in assessmentController: verifyByCode
+
+                    // Get logged in user from Auth (checkAuthentication returns it)
+                    const user = checkAuthentication('student');
+                    const studentIdParam = user ? `?studentId=${user.studentId}` : '';
+
+                    const response = await fetch(`/api/assessment/verify/${code}${studentIdParam}`);
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Save assess info
+                        sessionStorage.setItem('assessmentId', data.assessment.id);
+                        sessionStorage.setItem('assessmentTitle', data.assessment.title);
+                        sessionStorage.setItem('assessmentDuration', data.assessment.duration);
+                        sessionStorage.setItem('totalQuestions', data.assessment.totalQuestions);
+                        sessionStorage.setItem('startTime', new Date().toISOString());
+
+                        window.location.href = '/student/quiz.html';
+                    } else {
+                        alert(data.message || 'Invalid code');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert('Error starting assessment');
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = 'Start Assessment';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
