@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - English Assessment System</title>
+    <style>
+
+        /* Root variables for our new color scheme */
+        :root {
+            --bg-gradient-start: #dafbff;
+            --bg-gradient-end: #f9f8ff;
+            --primary-gradient-start: #6a11cb;
+            --primary-gradient-end: #2575fc;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            --text-primary: #1c1c3a;
+            --text-secondary: #5a5a7a;
+            --border-color: #e0e6f1;
+            --danger-color: #e53935;
+            --danger-hover: #c62828;
+            --font-family: 'Poppins', 'Arial', sans-serif;
+        }
+
+        /* Google Font for a modern look */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-family);
+        }
+        
+        body {
+            background-image: linear-gradient(120deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 25px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background-image: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            transform: rotate(-10deg);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(0deg) scale(1.1);
+        }
+        
+        .logo-text h1 {
+            color: var(--text-primary);
+            font-size: 22px;
+            font-weight: 600;
+        }
+        
+        .logo-text p {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+        
+        .user-nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-info {
+            text-align: right;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+        
+        .user-role {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .logout-btn {
+            background-color: transparent;
+            border: 1px solid #d0d5dd;
+            color: var(--text-secondary);
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: #fef3f2;
+            color: var(--danger-color);
+            border-color: #fecdca;
+        }
+        
+        .content {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .sidebar {
+            width: 260px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            height: fit-content;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .menu-item::before {
+            content: attr(data-icon);
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(106, 17, 203, 0.1);
+            color: var(--primary-gradient-start);
+        }
+        
+        .menu-item.active {
+            background-image: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .main-content {
+            flex: 1;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .page-description {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card::after {
+            content: attr(data-icon);
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 48px;
+            color: var(--primary-gradient-start);
+            opacity: 0.1;
+        }
+        
+        /* CORRECTED CSS: Fixes vendor prefix warnings and adds fallback */
+        .stat-value {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            /* 1. Fallback: A solid color for browsers that don't support the gradient effect. */
+            color: var(--primary-gradient-start); 
+            /* 2. Gradient Background: Use the standard syntax first. */
+            background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
+            /* 3. Clip the background to the text. Include the -webkit- prefix for older browser compatibility. */
+            -webkit-background-clip: text;
+            background-clip: text;
+            /* 4. Make the text color transparent so the background shows through. */
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .card-title {
+            font-size: 20px;
+            color: var(--text-primary);
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        th {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        td {
+            color: var(--text-primary);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(230, 230, 250, 0.5);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .action-btn {
+            background-image: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .action-btn.danger {
+            background-image: none;
+            background-color: var(--danger-color);
+        }
+        
+        .action-btn.danger:hover {
+            background-color: var(--danger-hover);
+        }
+        
+        .action-btn.outline {
+            background: transparent;
+            border: 1px solid var(--primary-gradient-start);
+            color: var(--primary-gradient-start);
+            background-image: none;
+            box-shadow: none;
+        }
+        
+        .action-btn.outline:hover {
+            background-color: rgba(106, 17, 203, 0.1);
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .search-form {
+            display: flex;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .search-form::before {
+            content: '🔍';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 15px 12px 45px; /* Added left padding for icon */
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 15px;
+            background-color: #fff;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-gradient-end);
+            box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.2);
+        }
+        
+        .search-btn {
+            display: none;
+        }
+        
+        @media (max-width: 992px) {
+            .content {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">EA</div>
+                <div class="logo-text">
+                    <h1>English Assessment</h1>
+                    <p>Admin Dashboard</p>
+                </div>
+            </div>
+            <nav class="user-nav">
+                <div class="user-info">
+                    <div class="user-name" id="admin-name">Loading...</div>
+                    <div class="user-role" id="admin-role">System Administrator</div>
+                </div>
+                <!-- REMOVED: Profile icon was removed as it's not logical for an admin to have a faculty profile link here -->
+                <button class="logout-btn" id="logout-btn">Logout</button>
+            </nav>
+        </header>
+        
+        <div class="content">
+            <aside class="sidebar">
+                <h3 class="sidebar-title">Navigation</h3>
+                <!-- REMOVED: Extra management pages removed for simplicity as requested -->
+                <a href="/admin/dashboard.html" class="menu-item active" data-icon="📊">Dashboard</a>
+            </aside>
+            
+            <main class="main-content">
+                <h1 class="page-title">Admin Dashboard</h1>
+                <p class="page-description">Welcome! Monitor key metrics and manage system users from this central hub.</p>
+                
+                <div class="stats-grid">
+                    
+                    <div class="stat-card" data-icon="👨‍🏫">
+                        <div class="stat-value" id="total-faculty">0</div>
+                        <div class="stat-label">Total Faculty</div>
+                    </div>
+                    <div class="stat-card" data-icon="🎓">
+                        <div class="stat-value" id="total-students">0</div>
+                        <div class="stat-label">Total Students</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <span>Faculty Accounts Overview</span>
+                        <button class="action-btn" onclick="addfaculty()">+ Add Faculty</button>
+                    </div>
+                    <div class="search-form">
+                        <input type="text" id="faculty-search-input" class="search-input" placeholder="Search faculty by name or department...">
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="faculty-table-body">
+                           <tr><td colspan="3" style="text-align:center;">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+ 
+                <div class="card">
+                    <div class="card-title">
+                        <span>Student Accounts Overview</span>
+                        <button class="action-btn" onclick="addstudent()">+ Add Student</button>
+                    </div>
+                    <div class="search-form">
+                        <input type="text" id="student-search-input" class="search-input" placeholder="Search students by name, email, or ID...">
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Student ID</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-table-body">
+                            <tr><td colspan="4" style="text-align: center;">Loading students...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        // Check authentication when page loads
+        window.onload = function() {
+            // Check if admin is logged in
+            if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
+                window.location.href = '/admin/login.html';
+                return;
+            }
+            
+            // Update admin name
+            document.getElementById('admin-name').textContent = sessionStorage.getItem('adminName') || 'Administrator';
+            document.getElementById('admin-role').textContent = sessionStorage.getItem('adminRole') || 'System Administrator';
+            
+            // Load dashboard data
+            loadDashboardData();
+
+            // Live search on keyup for a better UX
+            document.getElementById('faculty-search-input').addEventListener('keyup', searchFaculty);
+            document.getElementById('student-search-input').addEventListener('keyup', searchStudents);
+
+            // Enhanced logout functionality
+            document.getElementById('logout-btn').addEventListener('click', async function(e) {
+                e.preventDefault(); 
+                const logoutBtn = this;
+                const originalText = logoutBtn.textContent;
+                logoutBtn.textContent = 'Logging out...';
+                logoutBtn.disabled = true;
+
+                try {
+                    const authToken = getAuthToken();
+                    if (authToken) {
+                        const controller = new AbortController();
+                        const timeoutId = setTimeout(() => controller.abort(), 5000);
+                        await fetch('http://localhost:3002/api/admin/logout', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+                            credentials: 'include',
+                            signal: controller.signal
+                        });
+                        clearTimeout(timeoutId);
+                    }
+                } catch (error) {
+                    console.warn('Server logout failed or timed out:', error.message);
+                } finally {
+                    clearAllAuthData();
+                    logoutBtn.textContent = originalText;
+                    logoutBtn.disabled = false;
+                    setTimeout(() => {
+                        window.location.replace('/admin/login.html');
+                    }, 100);
+                }
+            });
+        };
+        
+        function clearAllAuthData() {
+            try {
+                sessionStorage.clear();
+                const authKeys = ['authToken', 'refreshToken', 'user', 'userRole', 'adminId', 'loggedInAdmin', 'adminLoggedIn', 'adminName', 'adminRole', 'sessionId'];
+                authKeys.forEach(key => localStorage.removeItem(key));
+                const authCookies = ['authToken', 'sessionId', 'refreshToken', 'adminSession'];
+                authCookies.forEach(cookieName => {
+                    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
+                });
+            } catch (error) {
+                console.error('Error clearing auth data:', error);
+            }
+        }
+
+        function getAuthToken() {
+            return sessionStorage.getItem('authToken') || localStorage.getItem('authToken') || getCookie('authToken');
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return decodeURIComponent(parts.pop().split(';').shift());
+            return null;
+        }
+        
+        function addstudent() {
+            window.location.href = "/student/registration.html";
+        }
+
+        function addfaculty() {
+            window.location.href = "/faculty/registration.html";
+        }
+        
+        function loadDashboardData() {
+            fetchFaculty();
+            fetchStudents();
+        }
+
+        // --- Data Fetching and Display Logic ---
+
+        let allStudents = [];
+        let allFaculty = [];
+        
+        function fetchStudents() {
+            fetch('/api/admin/students')
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to fetch students');
+                    return response.json();
+                })
+                .then(data => {
+                    allStudents = data;
+                    document.getElementById('total-students').textContent = data.length || '0';
+                    displayStudents(allStudents);
+                })
+                .catch(error => {
+                    console.error('Error fetching students:', error);
+                    document.getElementById('total-students').textContent = '0';
+                    document.getElementById('student-table-body').innerHTML = `<tr><td colspan="4" style="text-align: center;">Error loading students.</td></tr>`;
+                });
+        }
+
+        function displayStudents(students) {
+            const tableBody = document.getElementById('student-table-body');
+            tableBody.innerHTML = '';
+            if (!students || students.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">No students found</td></tr>`;
+                return;
+            }
+            students.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.full_name}</td>
+                    <td>${student.email}</td>
+                    <td>${student.student_id}</td>
+                    <td>
+                        <button class="action-btn outline" onclick="editStudent('${student.id}')">Edit</button>
+                        <button class="action-btn danger" onclick="deactivateStudent('${student.id}')">Deactivate</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function searchStudents() {
+            const searchTerm = document.getElementById('student-search-input').value.toLowerCase();
+            const filteredStudents = allStudents.filter(student => 
+                student.full_name.toLowerCase().includes(searchTerm) || 
+                student.email.toLowerCase().includes(searchTerm) || 
+                (student.student_id && student.student_id.toLowerCase().includes(searchTerm))
+            );
+            displayStudents(filteredStudents);
+        }
+
+        function fetchFaculty() {
+            fetch('/api/admin/faculty')
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to fetch faculty');
+                    return response.json();
+                })
+                .then(data => {
+                    allFaculty = data;
+                    document.getElementById('total-faculty').textContent = data.length || '0';
+                    displayFaculty(allFaculty);
+                })
+                .catch(error => {
+                    console.error('Error fetching faculty:', error);
+                    document.getElementById('total-faculty').textContent = '0';
+                    document.getElementById('faculty-table-body').innerHTML = `<tr><td colspan="3" style="text-align: center;">Error loading faculty.</td></tr>`;
+                });
+        }
+
+        function displayFaculty(faculty) {
+            const tableBody = document.getElementById('faculty-table-body');
+            tableBody.innerHTML = '';
+            if (!faculty || faculty.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="3" style="text-align: center;">No faculty found</td></tr>`;
+                return;
+            }
+            faculty.forEach(member => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${member.full_name}</td>
+                    <td>${member.department}</td>
+                    <td>
+                        <button class="action-btn outline" onclick="editFaculty('${member.id}')">Edit</button>
+                        <button class="action-btn danger" onclick="deactivateFaculty('${member.id}')">Deactivate</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function searchFaculty() {
+            const searchTerm = document.getElementById('faculty-search-input').value.toLowerCase();
+            const filteredFaculty = allFaculty.filter(member => 
+                member.full_name.toLowerCase().includes(searchTerm) || 
+                member.department.toLowerCase().includes(searchTerm)
+            );
+            displayFaculty(filteredFaculty);
+        }
+
+        function editStudent(id) {
+            if (!id) { alert('Student ID is required'); return; }
+            window.location.href = `/admin/edit_student.html?id=${id}`;
+        }
+
+        // This function correctly handles the "View/Edit Faculty Profile" action for an admin
+        function editFaculty(id) {
+            if (!id) { alert('Faculty ID is required'); return; }
+            window.location.href = `/admin/edit_faculty.html?id=${id}`;
+        }
+
+        async function deactivateStudent(studentId) {
+            if (!confirm('Are you sure you want to deactivate this student?')) return;
+            const button = event.target;
+            button.textContent = '...'; button.disabled = true;
+            try {
+                const response = await fetch(`/api/students/${studentId}/deactivate`, { method: 'PUT' });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Student deactivated successfully!');
+                    fetchStudents(); // Refresh the list
+                } else {
+                    alert(`Error: ${result.message}`);
+                    button.textContent = 'Deactivate'; button.disabled = false;
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+                button.textContent = 'Deactivate'; button.disabled = false;
+            }
+        }
+
+        async function deactivateFaculty(facultyId) {
+            if (!confirm('Are you sure you want to deactivate this faculty member?')) return;
+            const button = event.target;
+            button.textContent = '...'; button.disabled = true;
+            try {
+                const response = await fetch(`/api/faculty/${facultyId}/deactivate`, { method: 'PUT' });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Faculty member deactivated successfully!');
+                    fetchFaculty(); // Refresh the list
+                } else {
+                    alert(`Error: ${result.message}`);
+                    button.textContent = 'Deactivate'; button.disabled = false;
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+                button.textContent = 'Deactivate'; button.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

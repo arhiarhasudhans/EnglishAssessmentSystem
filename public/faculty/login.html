@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Login - English Assessment System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f0f4ff;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+        }
+        
+        .page-container {
+            display: flex;
+            width: 100%;
+            max-width: 950px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(45, 78, 150, 0.15);
+            overflow: hidden;
+        }
+
+        .login-container {
+            flex: 1;
+            padding: 40px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .illustration-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color:white;
+            padding: 40px;
+        }
+
+        .illustration-container img {
+            max-width: 100%;
+            height: auto;
+            transform: scale(1.05);
+        }
+        
+        .logo {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+        
+        .logo h1 {
+            color: #3a55a3;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .logo p {
+            color: #555;
+            font-size: 16px;
+        }
+        
+        .login-form {
+            width: 100%;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #3a55a3;
+            box-shadow: 0 0 0 3px rgba(58, 85, 163, 0.1);
+        }
+        
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(90deg, #4a69bd, #3a55a3);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(58, 85, 163, 0.3);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .back-link:hover {
+            color: #3a55a3;
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: #d9534f;
+            background-color: #fdeaea;
+            border: 1px solid #f9c5c3;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 15px;
+            padding: 10px;
+            text-align: center;
+            display: none;
+        }
+        
+        .loader {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .loader-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3a55a3;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 850px) {
+            .page-container {
+                flex-direction: column-reverse; /* Puts form on top on mobile */
+            }
+            .illustration-container {
+                display: none; /* Hides image on smaller screens to save space */
+            }
+            .login-container {
+                padding: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 0;
+            }
+            .page-container {
+                border-radius: 0;
+                box-shadow: none;
+                min-height: 100vh;
+            }
+            .login-container {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="page-container">
+        <!-- Login Form Section -->
+        <div class="login-container">
+            <div class="logo">
+                <h1>Faculty Portal</h1>
+                <p>Welcome back! Please log in.</p>
+            </div>
+            
+            <form class="login-form" id="loginForm" autocomplete="on">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" autofocus name="username" placeholder="Enter your username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="login-btn">Login</button>
+                
+                <div class="loader" id="loader">
+                    <div class="loader-spinner"></div>
+                </div>
+                
+                <div class="error-message" id="errorMessage"></div>
+            </form>
+            <a href="/" class="back-link">← Back to main login page</a>
+        </div>
+
+        <!-- Illustration Section -->
+        <div class="illustration-container">
+             <!-- 
+                IMPORTANT: Make sure the image file is in the same directory as this HTML file,
+                or update the src path to point to the correct location of your image.
+            -->
+            <img src="teacher.jpg" alt="Illustration of an instructor on a laptop screen">
+        </div>
+    </div>
+
+    <script>
+        // --- ALL JAVASCRIPT LOGIC IS PRESERVED AND UNCHANGED ---
+
+        const API_BASE_URL = '/api';
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const loader = document.getElementById('loader');
+        
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Hide any previous error message
+            errorMessage.style.display = 'none';
+            
+            // Show loader
+            loader.style.display = 'block';
+            
+            // Get form data
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                // Make API request to authenticate faculty
+                const response = await fetch(`${API_BASE_URL}/faculty/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username,
+                        password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Hide loader
+                loader.style.display = 'none';
+                
+                if (!response.ok) {
+                    // Show error message
+                    errorMessage.textContent = data.message || 'Login failed. Please try again.';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
+                // Store faculty info in session storage
+                sessionStorage.setItem('facultyId', data.faculty.id);
+                sessionStorage.setItem('facultyName', data.faculty.fullName);
+                sessionStorage.setItem('facultyDepartment', data.faculty.department);
+                sessionStorage.setItem('loggedInFaculty', JSON.stringify({
+                    id: data.faculty.id,
+                    fullName: data.faculty.fullName,
+                    department: data.faculty.department
+                }));
+                sessionStorage.setItem('isLoggedIn', 'true');
+                
+                // Redirect to faculty dashboard
+                window.location.href = '/faculty/dashboard.html';
+                
+            } catch (error) {
+                // Hide loader
+                loader.style.display = 'none';
+                
+                // Show error message
+                errorMessage.textContent = 'Server error. Please try again later.';
+                errorMessage.style.display = 'block';
+                console.error('Error logging in:', error);
+            }
+        });
+        
+        // Check if already logged in and clear form on page load/back navigation
+        window.addEventListener('load', function() {
+            loginForm.reset();
+            
+            if (sessionStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = '/faculty/dashboard.html';
+            }
+        });
+
+        // This event listener handles the browser's back-forward cache (bfcache).
+        // It ensures the form is always clear when the user navigates back to this page.
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                loginForm.reset();
+            }
+        });
+    </script>
+</body>
+</html>

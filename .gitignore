@@ -1,0 +1,11 @@
+ÿþï»¿# Node
+node_modules/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# ML model weights
+server/ml_model/model.safetensors
+server/ml_model/*.safetensors

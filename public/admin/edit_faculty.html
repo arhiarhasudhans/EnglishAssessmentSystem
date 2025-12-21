@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Faculty - English Assessment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .edit-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            border-top: 5px solid #27ae60;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .logo h1 {
+            font-size: 26px;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #1d976c, #3a55a3);
+            -webkit-background-clip: text;
+            background-clip: text; /* Added standard property to fix warning */
+            -webkit-text-fill-color: transparent;
+            color: transparent; /* Added for standard compliance */
+        }
+        
+        .logo p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .edit-form {
+            margin-top: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #27ae60;
+            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2);
+        }
+        
+        .form-group input:disabled {
+            background-color: #f4f6f7;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .update-btn, .cancel-btn {
+            flex: 1;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .update-btn {
+            background: linear-gradient(45deg, #2ecc71, #28a745);
+        }
+
+        .update-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
+        }
+        
+        .update-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .cancel-btn {
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+        }
+        
+        .cancel-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(127, 140, 141, 0.4);
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: #27ae60;
+            text-decoration: underline;
+        }
+        
+        .success-message {
+            color: #155724;
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+            padding: 12px;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+        }
+        
+        .error-message {
+            color: #721c24;
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+            padding: 12px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+        }
+        
+        .loader {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .loader-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #27ae60;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .password-section {
+            border-top: 1px solid #eee;
+            margin-top: 30px;
+            padding-top: 20px;
+        }
+        
+        .password-section h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #27ae60;
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 12px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 576px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            .edit-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-container">
+        <div class="logo">
+            <h1>English Assessment Portal</h1>
+            <p>Edit Faculty Information</p>
+        </div>
+        
+        <form class="edit-form" id="editForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Loading..." required>
+            </div>
+            
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Loading..." required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Loading..." required>
+            </div>
+            
+            <div class="form-group">
+                <label for="facultyId">Faculty ID</label>
+                <input type="text" id="facultyId" name="facultyId" placeholder="Loading..." disabled>
+            </div>
+            
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" id="department" name="department" placeholder="Loading..." required>
+            </div>
+            
+            <div class="password-section">
+                <h3>Password Settings</h3>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="changePassword" name="changePassword">
+                    <label for="changePassword">Change Password</label>
+                </div>
+                
+                <div class="form-group" id="newPasswordGroup" style="display: none;">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password">
+                </div>
+                
+                <div class="form-group" id="confirmPasswordGroup" style="display: none;">
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password">
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button type="submit" class="update-btn" id="updateBtn" disabled>Update Faculty</button>
+                <button type="button" class="cancel-btn" onclick="goBack()">Cancel</button>
+            </div>
+            
+            <div class="loader" id="loader">
+                <div class="loader-spinner"></div>
+            </div>
+            
+            <div class="success-message" id="successMessage"></div>
+            <div class="error-message" id="errorMessage"></div>
+        </form>
+
+        <a href="javascript:goBack()" class="back-link">← Back to Faculty List</a>
+    </div>
+
+    <script>
+        const API_BASE_URL = '/api';
+        let facultyData = null;
+        let facultyId = null;
+        
+        // Get faculty ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        facultyId = urlParams.get('id');
+        
+        const editForm = document.getElementById('editForm');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const loader = document.getElementById('loader');
+        const updateBtn = document.getElementById('updateBtn');
+        const changePasswordCheckbox = document.getElementById('changePassword');
+        const newPasswordGroup = document.getElementById('newPasswordGroup');
+        const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
+        
+        // Check if faculty ID is provided
+        if (!facultyId) {
+            showError('Faculty ID is required');
+            setTimeout(() => {
+                goBack();
+            }, 3000);
+        } else {
+            loadFacultyData();
+        }
+        
+        // Toggle password fields
+        changePasswordCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                newPasswordGroup.style.display = 'block';
+                confirmPasswordGroup.style.display = 'block';
+                document.getElementById('newPassword').required = true;
+                document.getElementById('confirmPassword').required = true;
+            } else {
+                newPasswordGroup.style.display = 'none';
+                confirmPasswordGroup.style.display = 'none';
+                document.getElementById('newPassword').required = false;
+                document.getElementById('confirmPassword').required = false;
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
+            }
+        });
+        
+        // Load faculty data
+        async function loadFacultyData() {
+            try {
+                showLoader(true);
+                
+                const response = await fetch(`${API_BASE_URL}/faculty/${facultyId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Add authorization header if needed
+                        'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+                    }
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to load faculty data');
+                }
+                
+                facultyData = await response.json();
+                populateForm(facultyData);
+                updateBtn.disabled = false;
+                
+            } catch (error) {
+                showError('Failed to load faculty data: ' + error.message);
+                console.error('Error loading faculty data:', error);
+                setTimeout(() => {
+                    goBack();
+                }, 3000);
+            } finally {
+                showLoader(false);
+            }
+        }
+        
+        // Populate form with faculty data
+        function populateForm(data) {
+            document.getElementById('username').value = data.username || '';
+            document.getElementById('fullName').value = data.fullName || data.full_name || '';
+            document.getElementById('email').value = data.email || '';
+            document.getElementById('facultyId').value = data.facultyId || data.faculty_id || '';
+            document.getElementById('department').value = data.department || '';
+        }
+        
+        // Handle form submission
+        editForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Hide any previous messages
+            hideMessages();
+            
+            // Get form data
+            const username = document.getElementById('username').value.trim();
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const department = document.getElementById('department').value.trim();
+            const changePassword = document.getElementById('changePassword').checked;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validation
+            if (!username || !fullName || !email || !department) {
+                showError('Please fill in all required fields');
+                return;
+            }
+            
+            if (changePassword) {
+                if (!newPassword || !confirmPassword) {
+                    showError('Please enter and confirm the new password');
+                    return;
+                }
+                
+                if (newPassword !== confirmPassword) {
+                    showError('New passwords do not match');
+                    return;
+                }
+                
+                if (newPassword.length < 6) {
+                    showError('Password must be at least 6 characters long');
+                    return;
+                }
+            }
+            
+            // Prepare update data
+            const updateData = {
+                username,
+                fullName,
+                email,
+                department
+            };
+            
+            if (changePassword) {
+                updateData.password = newPassword;
+            }
+            
+            try {
+                showLoader(true);
+                updateBtn.disabled = true;
+                
+                // Make API request to update faculty
+                const response = await fetch(`${API_BASE_URL}/faculty/${facultyId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+                    },
+                    body: JSON.stringify(updateData)
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to update faculty');
+                }
+                
+                // Show success message
+                showSuccess('Faculty information updated successfully!');
+                
+                // Reset password fields if they were used
+                if (changePassword) {
+                    changePasswordCheckbox.checked = false;
+                    newPasswordGroup.style.display = 'none';
+                    confirmPasswordGroup.style.display = 'none';
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('confirmPassword').value = '';
+                }
+                
+                // Redirect after success
+                setTimeout(() => {
+                    goBack();
+                }, 2000);
+                
+            } catch (error) {
+                showError('Failed to update faculty: ' + error.message);
+                console.error('Error updating faculty:', error);
+            } finally {
+                showLoader(false);
+                updateBtn.disabled = false;
+            }
+        });
+        
+        // Utility functions
+        function showLoader(show) {
+            loader.style.display = show ? 'block' : 'none';
+        }
+        
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+        }
+        
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+        }
+        
+        function hideMessages() {
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+        }
+        
+        function goBack() {
+            // You can customize this to go to your faculty management page
+            window.history.back();
+            // Or redirect to a specific page:
+            // window.location.href = '/admin/faculty-list.html';
+        }
+        
+        // Handle page unload
+        window.addEventListener('beforeunload', function(e) {
+            // Check if form has been modified
+            if (hasFormChanged()) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+        
+        function hasFormChanged() {
+            if (!facultyData) return false;
+            
+            const current = {
+                username: document.getElementById('username').value.trim(),
+                fullName: document.getElementById('fullName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                department: document.getElementById('department').value.trim()
+            };
+            
+            const original = {
+                username: facultyData.username || '',
+                fullName: facultyData.fullName || facultyData.full_name || '',
+                email: facultyData.email || '',
+                department: facultyData.department || ''
+            };
+            
+            return JSON.stringify(current) !== JSON.stringify(original) || 
+                   document.getElementById('changePassword').checked;
+        }
+    </script>
+</body>
+</html>

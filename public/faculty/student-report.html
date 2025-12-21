@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Student Reports - English Assessment System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- START OF NEW CREATIVE STYLES --- */
+        :root {
+            --primary-purple: #7e57c2;
+            --primary-purple-dark: #5e35b1;
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-orange: #ff9800;
+            --accent-orange-dark: #f57c00;
+            --bg-light: #f9f8ff;
+            --text-dark: #333;
+            --text-light: #666;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Arial', sans-serif; }
+        
+        body { 
+            background-color: var(--bg-light); 
+            min-height: 100vh; 
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 15px 0; 
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+        
+        .logo { display: flex; align-items: center; }
+        
+        .logo-icon { 
+            width: 45px; 
+            height: 45px; 
+            background: var(--primary-gradient);
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-right: 15px; 
+            color: white; 
+            font-size: 20px; 
+            font-weight: bold; 
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.5);
+        }
+        
+        .logo-text h1 { 
+            color: var(--primary-purple-dark);
+            font-size: 22px; 
+            margin-bottom: 0;
+            font-weight: 700;
+        }
+        
+        .logo-text p { color: var(--text-light); font-size: 12px; }
+        
+        .user-nav { display: flex; align-items: center; }
+        .user-info { margin-right: 20px; text-align: right; }
+        .user-name { font-weight: 600; color: var(--text-dark); font-size: 15px; }
+        .user-role { color: var(--text-light); font-size: 12px; }
+        
+        .logout-btn { 
+            background-color: transparent; 
+            border: 1px solid #d0d0d0; 
+            color: var(--text-light); 
+            padding: 8px 15px; 
+            border-radius: 20px; /* Pill shape */
+            cursor: pointer; 
+            font-size: 14px; 
+            font-weight: 600;
+            transition: all 0.3s ease; 
+        }
+        
+        .logout-btn:hover { 
+            background-color: var(--accent-orange);
+            color: white;
+            border-color: var(--accent-orange);
+        }
+        
+        .logout-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        .content { display: flex; gap: 30px; }
+        
+        .sidebar { 
+            width: 250px; 
+            background: var(--card-bg); 
+            padding: 20px; 
+            border-radius: 15px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
+            height: fit-content; 
+        }
+        
+        .sidebar-title { 
+            font-size: 18px; 
+            color: var(--primary-purple-dark);
+            margin-bottom: 20px; 
+            padding-bottom: 10px; 
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+        
+        .menu-item { 
+            display: block; 
+            padding: 14px 20px; 
+            border-radius: 10px; 
+            color: #555; 
+            text-decoration: none; 
+            font-size: 15px; 
+            margin-bottom: 8px; 
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .menu-item:hover { 
+            background-color: #f3e5f5; /* Light purple */
+            color: var(--primary-purple-dark);
+            transform: translateX(5px);
+        }
+        
+        .menu-item.active { 
+            background: var(--primary-gradient);
+            color: white; 
+            box-shadow: 0 4px 15px -5px rgba(102, 126, 234, 0.7);
+            transform: translateX(5px);
+        }
+        
+        .main-content { flex: 1; }
+        
+        .card { 
+            background-color: var(--card-bg); 
+            border-radius: 15px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
+            padding: 30px; 
+            border-top: 5px solid;
+            border-image-slice: 1;
+            border-width: 5px;
+            border-image-source: var(--primary-gradient);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+        }
+        
+        table { width: 100%; border-collapse: collapse; }
+        
+        th, td { 
+            padding: 15px; 
+            text-align: left; 
+            border-bottom: 1px solid #f0f0f0; 
+        }
+        
+        th { 
+            color: var(--primary-purple); 
+            font-weight: 700; 
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        tr:last-child td { border-bottom: none; }
+        
+        tr:hover {
+            background-color: #faf7ff;
+        }
+        
+        .page-title { 
+            font-size: 28px; 
+            color: var(--primary-purple-dark);
+            margin-bottom: 10px; 
+            font-weight: 700;
+        }
+        
+        .page-description { 
+            color: var(--text-light); 
+            font-size: 15px; 
+            margin-bottom: 30px; 
+        }
+        
+        .action-btn { 
+            background: var(--primary-purple);
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            font-weight: 600;
+            cursor: pointer; 
+            text-decoration: none; 
+            display: inline-block; 
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover { 
+            background: var(--primary-purple-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(94, 53, 177, 0.3);
+        }
+        
+        .logout-spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.5); border-top-color: white; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 5px; }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-top: 5px solid var(--primary-purple);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 32px;
+            font-weight: bold;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .modal-close:hover {
+            color: var(--primary-purple-dark);
+            transform: rotate(90deg);
+        }
+        
+        #download-report-btn {
+            background: var(--accent-orange);
+        }
+        #download-report-btn:hover {
+            background: var(--accent-orange-dark);
+            box-shadow: 0 5px 10px rgba(245, 124, 0, 0.3);
+        }
+        
+        .card-title {
+            font-size: 18px;
+            color: var(--primary-purple-dark);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+        /* --- END OF NEW CREATIVE STYLES --- */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">EA</div>
+                <div class="logo-text">
+                    <h1>English Assessment</h1>
+                    <p>Faculty Portal</p>
+                </div>
+            </div>
+            <div class="user-nav">
+                <div class="user-info">
+                    <div class="user-name" id="faculty-name">Loading...</div>
+                    <div class="user-role" id="faculty-role">English Department</div>
+                </div>
+                <button class="logout-btn" id="logout-btn">Logout</button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="sidebar">
+                <h2 class="sidebar-title">Navigation</h2>
+                <a href="/faculty/dashboard.html" class="menu-item">Dashboard</a>
+                <a href="/faculty/upload.html" class="menu-item">Upload Question Set</a>
+                <a href="/faculty/assessment-results.html" class="menu-item">View Results</a>
+                <a href="/faculty/student-report.html" class="menu-item active">Student Reports</a>
+            </div>
+            
+            <div class="main-content">
+                <h1 class="page-title">Student Reports</h1>
+                <p class="page-description">View a list of all registered students and their individual assessment reports.</p>
+                
+                <div class="card">
+                    <h2 class="card-title">All Students</h2>
+                    <div class="recent-activity">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Email</th>
+                                    <th>Assessments Taken</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="student-list-table-body">
+                                <tr>
+                                    <td colspan="4" style="text-align: center;">Loading student data...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Report Modal -->
+    <div id="report-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">×</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 15px; margin-bottom: 20px;">
+                <h2 class="card-title" style="margin: 0; padding: 0; border: none;">Report for <span id="modal-student-name"></span></h2>
+                <button id="download-report-btn" class="action-btn" style="display: none;">Download CSV</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Assessment</th>
+                        <th>Score</th>
+                        <th>Percentage</th>
+                        <th>Date Taken</th>
+                    </tr>
+                </thead>
+                <tbody id="report-details-table-body">
+                    <!-- Report details will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // --- START OF AUTHENTICATION AND PAGE SETUP SCRIPT ---
+        let isLoggedOut = false;
+        let authCheckInterval;
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return decodeURIComponent(parts.pop().split(';').shift());
+            return null;
+        }
+
+        function checkAuthentication() {
+            if (isLoggedOut) {
+                redirectToLogin();
+                return false;
+            }
+            const loggedInFaculty = sessionStorage.getItem('loggedInFaculty') || localStorage.getItem('loggedInFaculty') || getCookie('facultySession');
+            if (!loggedInFaculty) {
+                redirectToLogin();
+                return false;
+            }
+            return JSON.parse(loggedInFaculty);
+        }
+
+        function redirectToLogin() {
+            isLoggedOut = true;
+            clearAllAuthData();
+            if (authCheckInterval) clearInterval(authCheckInterval);
+            window.location.replace('/faculty/login.html');
+        }
+
+        function clearAllAuthData() {
+            sessionStorage.clear();
+            const authKeys = ['authToken', 'refreshToken', 'user', 'userRole', 'facultyId', 'loggedInFaculty', 'sessionId', 'facultyToken'];
+            authKeys.forEach(key => localStorage.removeItem(key));
+            const authCookies = ['authToken', 'sessionId', 'refreshToken', 'facultySession', 'facultyToken'];
+            authCookies.forEach(cookieName => {
+                document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
+            });
+        }
+        
+        function getAuthToken() {
+            return sessionStorage.getItem('authToken') || sessionStorage.getItem('facultyToken') || localStorage.getItem('authToken') || localStorage.getItem('facultyToken') || getCookie('authToken') || getCookie('facultyToken');
+        }
+
+        async function performLogout() {
+            if (isLoggedOut) return;
+            const logoutBtn = document.getElementById('logout-btn');
+            logoutBtn.disabled = true;
+            logoutBtn.innerHTML = '<span class="logout-spinner"></span>Logging out...';
+            isLoggedOut = true;
+            const authToken = getAuthToken();
+            if (authToken) {
+                try {
+                    await fetch('/api/faculty/logout', { method: 'POST', headers: { 'Authorization': `Bearer ${authToken}` } });
+                } catch (e) {
+                    console.warn('Server logout failed, proceeding with client cleanup');
+                }
+            }
+            clearAllAuthData();
+            setTimeout(() => window.location.replace('/faculty/login.html'), 100);
+        }
+
+        function setupAuthCheck() {
+            authCheckInterval = setInterval(() => !isLoggedOut && checkAuthentication(), 30000);
+        }
+
+        function loadFacultyInfo(facultyData) {
+            if (!facultyData) return;
+            document.getElementById('faculty-name').textContent = facultyData.fullName || 'Faculty';
+            document.getElementById('faculty-role').textContent = facultyData.department || 'Faculty Department';
+        }
+        // --- END OF AUTHENTICATION SCRIPT ---
+
+        function downloadCSV(csvContent, filename) {
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            if (link.download !== undefined) {
+                const url = URL.createObjectURL(blob);
+                link.setAttribute("href", url);
+                link.setAttribute("download", filename);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }
+        }
+
+        // Function to load all registered students
+        async function loadAllStudents() {
+            const tableBody = document.getElementById('student-list-table-body');
+            try {
+                // This API endpoint should return a list of all students from your Neon DB
+                const response = await fetch('/api/students/all', {
+                    headers: { 'Authorization': `Bearer ${getAuthToken()}` }
+                });
+                if (!response.ok) throw new Error('Failed to fetch students');
+                const result = await response.json();
+                
+                if (result.success && result.students.length > 0) {
+                    tableBody.innerHTML = '';
+                    result.students.forEach(student => {
+                        const row = document.createElement('tr');
+                        // Use template literals for clean HTML string construction
+                        // Note the escaping of quotes within the onclick attribute
+                        row.innerHTML = `
+                            <td>${student.fullName || 'N/A'}</td>
+                            <td>${student.email || 'N/A'}</td>
+                            <td>${student.assessmentsTakenCount || 0}</td>
+                            <td>
+                                <button class="action-btn" onclick="viewStudentReport('${student.id}', '${student.fullName.replace(/'/g, "\\'")}')">View Report</button>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    tableBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">No students found.</td></tr>`;
+                }
+            } catch (error) {
+                console.error('Error loading students:', error);
+                tableBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">Error loading student data.</td></tr>`;
+            }
+        }
+
+        // Function to open modal and view a specific student's report
+        async function viewStudentReport(studentId, studentName) {
+            const modal = document.getElementById('report-modal');
+            const modalStudentName = document.getElementById('modal-student-name');
+            const reportBody = document.getElementById('report-details-table-body');
+            const downloadBtn = document.getElementById('download-report-btn');
+
+            modalStudentName.textContent = studentName;
+            modal.style.display = 'flex';
+            reportBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">Loading report...</td></tr>`;
+            downloadBtn.style.display = 'none';
+            
+            try {
+                // This API endpoint should return all assessment results for a given student ID
+                const response = await fetch(`/api/student/report/${studentId}`, {
+                    headers: { 'Authorization': `Bearer ${getAuthToken()}` }
+                });
+                if (!response.ok) throw new Error('Failed to fetch report');
+                const result = await response.json();
+
+                if (result.success && result.report.length > 0) {
+                    reportBody.innerHTML = '';
+                    let csvContent = "Assessment,Score,Total Questions,Percentage,Date Taken\r\n";
+                    result.report.forEach(item => {
+                        const dateTaken = new Date(item.dateTaken);
+                        const formattedDate = !isNaN(dateTaken) ? dateTaken.toLocaleString() : 'Invalid Date';
+                        const percentage = item.totalQuestions > 0 ? ((item.score / item.totalQuestions) * 100).toFixed(1) : 0;
+                        
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${item.assessmentTitle || 'Untitled Assessment'}</td>
+                            <td>${item.score} / ${item.totalQuestions}</td>
+                            <td>${percentage}%</td>
+                            <td>${formattedDate}</td>
+                        `;
+                        reportBody.appendChild(row);
+
+                        const csvRow = `"${item.assessmentTitle}",${item.score},${item.totalQuestions},${percentage}%,"${formattedDate}"\r\n`;
+                        csvContent += csvRow;
+                    });
+
+                    downloadBtn.style.display = 'inline-block';
+                    downloadBtn.onclick = function() {
+                        downloadCSV(csvContent, `report-${studentName.replace(/\s+/g, '_')}.csv`);
+                    };
+
+                } else {
+                    reportBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">This student has not taken any assessments.</td></tr>`;
+                }
+            } catch (error) {
+                console.error('Error loading student report:', error);
+                reportBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">Error loading report.</td></tr>`;
+            }
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById('report-modal').style.display = 'none';
+        }
+
+        // Page load handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const facultyData = checkAuthentication();
+            if (!facultyData) return;
+
+            loadFacultyInfo(facultyData);
+            loadAllStudents();
+            setupAuthCheck();
+
+            document.getElementById('logout-btn').addEventListener('click', performLogout);
+            
+            // Close modal if user clicks outside the content area
+            document.getElementById('report-modal').addEventListener('click', (event) => {
+                if(event.target.id === 'report-modal') {
+                    closeModal();
+                }
+            });
+        });
+        
+        // Event listeners for auth check
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+                if(!checkAuthentication()) return;
+                window.location.reload();
+            }
+        });
+        window.addEventListener('popstate', () => checkAuthentication());
+        document.addEventListener('visibilitychange', () => !document.hidden && checkAuthentication());
+        window.addEventListener('focus', () => checkAuthentication());
+        window.addEventListener('beforeunload', () => clearInterval(authCheckInterval));
+    </script>
+</body>
+</html>

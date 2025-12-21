@@ -1,0 +1,37 @@
+[
+  {
+    "id": "SAMPLE001",
+    "code": "TEST123",
+    "title": "Sample English Proficiency Assessment",
+    "description": "A basic assessment to evaluate English language skills",
+    "duration": 60,
+    "totalQuestions": 20,
+    "questions": [
+      {
+        "id": 1,
+        "type": "multiple-choice",
+        "text": "What is the correct use of \"their\" in a sentence?",
+        "options": [
+          "They're going to the store.",
+          "The store is over there.",
+          "The students submitted their assignments.",
+          "The store is their."
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "id": 2,
+        "type": "multiple-choice",
+        "text": "Choose the correctly spelled word:",
+        "options": [
+          "Accomodate",
+          "Accommodate",
+          "Acommodate",
+          "Acomodate"
+        ],
+        "correctAnswer": 1
+      }
+    ],
+    "createdAt": "2025-05-02T20:22:39.738Z"
+  }
+]

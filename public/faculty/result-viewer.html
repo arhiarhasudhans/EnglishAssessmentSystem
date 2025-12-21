@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Student Results - Faculty Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- START OF NEW CREATIVE STYLES --- */
+        :root {
+            --primary-purple: #7e57c2;
+            --primary-purple-dark: #5e35b1;
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-orange: #ff9800;
+            --accent-orange-dark: #f57c00;
+            --bg-light: #f9f8ff;
+            --text-dark: #333;
+            --text-light: #666;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Arial', sans-serif; }
+        
+        body { 
+            background-color: var(--bg-light); 
+            min-height: 100vh; 
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 15px 0; 
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+        
+        .logo { display: flex; align-items: center; }
+        
+        .logo-icon { 
+            width: 45px; 
+            height: 45px; 
+            background: var(--primary-gradient);
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-right: 15px; 
+            color: white; 
+            font-size: 20px; 
+            font-weight: bold; 
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.5);
+        }
+        
+        .logo-text h1 { 
+            color: var(--primary-purple-dark);
+            font-size: 22px; 
+            margin-bottom: 0;
+            font-weight: 700;
+        }
+        
+        .logo-text p { color: var(--text-light); font-size: 12px; }
+        
+        .user-nav { display: flex; align-items: center; }
+        .user-info { margin-right: 20px; text-align: right; }
+        .user-name { font-weight: 600; color: var(--text-dark); font-size: 15px; }
+        .user-role { color: var(--text-light); font-size: 12px; }
+        
+        .logout-btn { 
+            background-color: transparent; 
+            border: 1px solid #d0d0d0; 
+            color: var(--text-light); 
+            padding: 8px 15px; 
+            border-radius: 20px; /* Pill shape */
+            cursor: pointer; 
+            font-size: 14px; 
+            font-weight: 600;
+            transition: all 0.3s ease; 
+        }
+        
+        .logout-btn:hover { 
+            background-color: var(--accent-orange);
+            color: white;
+            border-color: var(--accent-orange);
+        }
+        
+        .logout-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        .content { display: flex; gap: 30px; }
+        
+        .sidebar { 
+            width: 250px; 
+            background: var(--card-bg); 
+            padding: 20px; 
+            border-radius: 15px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
+            height: fit-content; 
+        }
+        
+        .sidebar-title { 
+            font-size: 18px; 
+            color: var(--primary-purple-dark);
+            margin-bottom: 20px; 
+            padding-bottom: 10px; 
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+        
+        .menu-item { 
+            display: block; 
+            padding: 14px 20px; 
+            border-radius: 10px; 
+            color: #555; 
+            text-decoration: none; 
+            font-size: 15px; 
+            margin-bottom: 8px; 
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .menu-item:hover { 
+            background-color: #f3e5f5; /* Light purple */
+            color: var(--primary-purple-dark);
+            transform: translateX(5px);
+        }
+        
+        .menu-item.active { 
+            background: var(--primary-gradient);
+            color: white; 
+            box-shadow: 0 4px 15px -5px rgba(102, 126, 234, 0.7);
+            transform: translateX(5px);
+        }
+        
+        .main-content { flex: 1; }
+        
+        .card { 
+            background-color: var(--card-bg); 
+            border-radius: 15px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
+            padding: 30px; 
+            border-top: 5px solid;
+            border-image-slice: 1;
+            border-width: 5px;
+            border-image-source: var(--primary-gradient);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+        }
+        
+        table { width: 100%; border-collapse: collapse; }
+        
+        th, td { 
+            padding: 15px; 
+            text-align: left; 
+            border-bottom: 1px solid #f0f0f0; 
+        }
+        
+        th { 
+            color: var(--primary-purple); 
+            font-weight: 700; 
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+        th:hover {
+            background-color: #f3e5f5;
+        }
+        
+        td {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        tr:last-child td { border-bottom: none; }
+        
+        tr:hover {
+            background-color: #faf7ff;
+        }
+        
+        .page-title { 
+            font-size: 28px; 
+            color: var(--primary-purple-dark);
+            margin-bottom: 5px; 
+            font-weight: 700;
+        }
+        
+        .page-subtitle { 
+            color: var(--text-light); 
+            font-size: 16px; 
+            margin-bottom: 30px; 
+        }
+        
+        .action-btn { 
+            background: var(--primary-purple);
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            font-weight: 600;
+            cursor: pointer; 
+            text-decoration: none; 
+            display: inline-block; 
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover { 
+            background: var(--primary-purple-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(94, 53, 177, 0.3);
+        }
+
+        #download-results-btn {
+            background: var(--accent-orange);
+        }
+        #download-results-btn:hover {
+            background: var(--accent-orange-dark);
+            box-shadow: 0 5px 10px rgba(245, 124, 0, 0.3);
+        }
+        
+        .logout-spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.5); border-top-color: white; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 5px; }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* --- END OF NEW CREATIVE STYLES --- */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">EA</div>
+                <div class="logo-text">
+                    <h1>English Assessment</h1>
+                    <p>Faculty Portal</p>
+                </div>
+            </div>
+            <div class="user-nav">
+                <div class="user-info">
+                    <div class="user-name" id="faculty-name">Loading...</div>
+                    <div class="user-role" id="faculty-role">English Department</div>
+                </div>
+                <button class="logout-btn" id="logout-btn">Logout</button>
+            </div>
+        </div>
+
+         <div class="content">
+            <div class="sidebar">
+                <h2 class="sidebar-title">Navigation</h2>
+                <a href="/faculty/dashboard.html" class="menu-item">Dashboard</a>
+                <a href="/faculty/upload.html" class="menu-item">Upload Question Set</a>
+                <a href="/faculty/assessment-results.html" class="menu-item active">View Results</a>
+                <a href="/faculty/student-report.html" class="menu-item">Student Reports</a>
+            </div>
+            
+            <div class="main-content">
+                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <div>
+                        <h1 class="page-title" id="assessment-title" style="margin-bottom: 5px;">Loading...</h1>
+                        <p class="page-subtitle" style="margin-bottom: 0;">Showing all completed attempts for this assessment.</p>
+                    </div>
+                    <button id="download-results-btn" class="action-btn" style="display: none;">Download CSV</button>
+                </div>
+                
+                <div class="card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Student ID</th>
+                                <th>Score (%)</th>
+                                <th>Completion Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-table">
+                            <tr>
+                                <td colspan="4" style="text-align: center;">Loading results...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // --- START OF AUTHENTICATION AND PAGE SETUP SCRIPT ---
+        let isLoggedOut = false;
+        let authCheckInterval;
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return decodeURIComponent(parts.pop().split(';').shift());
+            return null;
+        }
+
+        function checkAuthentication() {
+            if (isLoggedOut) {
+                redirectToLogin();
+                return false;
+            }
+            const loggedInFaculty = sessionStorage.getItem('loggedInFaculty') || localStorage.getItem('loggedInFaculty') || getCookie('facultySession');
+            if (!loggedInFaculty) {
+                redirectToLogin();
+                return false;
+            }
+            return JSON.parse(loggedInFaculty);
+        }
+
+        function redirectToLogin() {
+            isLoggedOut = true;
+            clearAllAuthData();
+            if (authCheckInterval) clearInterval(authCheckInterval);
+            window.location.replace('/faculty/login.html');
+        }
+
+        function clearAllAuthData() {
+            sessionStorage.clear();
+            const authKeys = ['authToken', 'refreshToken', 'user', 'userRole', 'facultyId', 'loggedInFaculty', 'sessionId', 'facultyToken'];
+            authKeys.forEach(key => localStorage.removeItem(key));
+            const authCookies = ['authToken', 'sessionId', 'refreshToken', 'facultySession', 'facultyToken'];
+            authCookies.forEach(cookieName => {
+                document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
+            });
+        }
+        
+        function getAuthToken() {
+            return sessionStorage.getItem('authToken') || sessionStorage.getItem('facultyToken') || localStorage.getItem('authToken') || localStorage.getItem('facultyToken') || getCookie('authToken') || getCookie('facultyToken');
+        }
+
+        async function performLogout() {
+            if (isLoggedOut) return;
+            const logoutBtn = document.getElementById('logout-btn');
+            logoutBtn.disabled = true;
+            logoutBtn.innerHTML = '<span class="logout-spinner"></span>Logging out...';
+            isLoggedOut = true;
+            const authToken = getAuthToken();
+            if (authToken) {
+                try {
+                    await fetch('/api/faculty/logout', { method: 'POST', headers: { 'Authorization': `Bearer ${authToken}` } });
+                } catch (e) {
+                    console.warn('Server logout failed, proceeding with client cleanup');
+                }
+            }
+            clearAllAuthData();
+            setTimeout(() => window.location.replace('/faculty/login.html'), 100);
+        }
+
+        function setupAuthCheck() {
+            authCheckInterval = setInterval(() => !isLoggedOut && checkAuthentication(), 30000);
+        }
+
+        function loadFacultyInfo(facultyData) {
+            if (!facultyData) return;
+            document.getElementById('faculty-name').textContent = facultyData.fullName || 'Faculty';
+            document.getElementById('faculty-role').textContent = facultyData.department || 'Faculty Department';
+        }
+        // --- END OF AUTHENTICATION SCRIPT ---
+
+        function downloadCSV(csvContent, filename) {
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            if (link.download !== undefined) {
+                const url = URL.createObjectURL(blob);
+                link.setAttribute("href", url);
+                link.setAttribute("download", filename);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }
+        }
+
+        async function loadResults() {
+            const params = new URLSearchParams(window.location.search);
+            const assessmentId = params.get('id');
+            const titleElement = document.getElementById('assessment-title');
+            const tableBody = document.getElementById('results-table');
+            const downloadBtn = document.getElementById('download-results-btn');
+            
+            if (!assessmentId) {
+                titleElement.textContent = "Error: No Assessment ID Provided";
+                tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Please select an assessment to view results. <a href="/faculty/assessment-results.html">Go back</a>.</td></tr>';
+                return;
+            }
+
+            try {
+                // Fetch assessment details to get the title
+                const assessmentRes = await fetch(`/api/assessment/${assessmentId}`);
+                const assessmentData = await assessmentRes.json();
+                if (!assessmentRes.ok) throw new Error(assessmentData.message);
+                titleElement.textContent = `Results for: ${assessmentData.title}`;
+
+                // Fetch student results for this assessment
+                const resultsRes = await fetch(`/api/assessment/${assessmentId}/results`);
+                const resultsData = await resultsRes.json();
+                if (!resultsData.success) throw new Error(resultsData.message);
+                
+                const results = resultsData.results;
+                if (results.length > 0) {
+                    tableBody.innerHTML = '';
+                    let csvContent = "Student Name,Student ID,Score (%),Completion Date\r\n";
+                    results.forEach(result => {
+                        const row = document.createElement('tr');
+                        const completionDate = new Date(result.end_time);
+                        const formattedDate = !isNaN(completionDate) ? completionDate.toLocaleString() : 'N/A';
+
+                        row.innerHTML = `
+                            <td>${result.full_name}</td>
+                            <td>${result.student_id}</td>
+                            <td>${parseFloat(result.score).toFixed(2)}%</td>
+                            <td>${formattedDate}</td>
+                        `;
+                        tableBody.appendChild(row);
+
+                        // Append row to CSV content, ensuring data is quoted
+                        const csvRow = `"${result.full_name}","${result.student_id}",${parseFloat(result.score).toFixed(2)},"${formattedDate}"\r\n`;
+                        csvContent += csvRow;
+                    });
+
+                    downloadBtn.style.display = 'inline-block';
+                    downloadBtn.onclick = function() {
+                        const safeTitle = assessmentData.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                        downloadCSV(csvContent, `results-${safeTitle}.csv`);
+                    };
+
+                } else {
+                    tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">No students have completed this assessment yet.</td></tr>';
+                    downloadBtn.style.display = 'none';
+                }
+
+            } catch (error) {
+                console.error('Error loading results:', error);
+                titleElement.textContent = "Error Loading Results";
+                tableBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">Could not load results. ${error.message}</td></tr>`;
+                downloadBtn.style.display = 'none';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const facultyData = checkAuthentication();
+            if (!facultyData) return;
+
+            loadFacultyInfo(facultyData);
+            setupAuthCheck();
+            document.getElementById('logout-btn').addEventListener('click', performLogout);
+
+            loadResults();
+        });
+
+        // Event listeners for auth check
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+                if(!checkAuthentication()) return;
+                window.location.reload();
+            }
+        });
+        window.addEventListener('popstate', () => checkAuthentication());
+        document.addEventListener('visibilitychange', () => !document.hidden && checkAuthentication());
+        window.addEventListener('focus', () => checkAuthentication());
+        window.addEventListener('beforeunload', () => clearInterval(authCheckInterval));
+    </script>
+</body>
+</html>

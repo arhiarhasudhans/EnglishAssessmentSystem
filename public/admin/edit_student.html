@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student - English Assessment Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            padding: 30px 40px;
+            border-top: 5px solid #4a69bd;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #4a69bd, #6a82fb);
+            -webkit-background-clip: text;
+            background-clip: text; /* Added standard property to fix warning */
+            -webkit-text-fill-color: transparent;
+            color: transparent; /* Added for standard compliance */
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 8px 16px;
+            background-color: #8e44ad;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .back-btn:hover {
+            background-color: #732d91;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .edit-form {
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4a69bd;
+            box-shadow: 0 0 0 3px rgba(74, 105, 189, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .update-btn, .cancel-btn {
+            flex: 1;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .update-btn {
+            background: linear-gradient(45deg, #4a69bd, #5e7ce2);
+        }
+        
+        .update-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(74, 105, 189, 0.4);
+        }
+        
+        .cancel-btn {
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+        }
+        
+        .cancel-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(127, 140, 141, 0.4);
+        }
+        
+        .success-message {
+            color: #155724;
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+            padding: 12px;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+        }
+        
+        .error-message {
+            color: #721c24;
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+            padding: 12px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+        }
+        
+        .loader {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .loader-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4a69bd;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .student-info {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid #4a69bd;
+        }
+        
+        .student-info h3 {
+            color: #4a69bd;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .info-item {
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .info-item strong {
+            color: #333;
+            min-width: 150px;
+            display: inline-block;
+        }
+        
+        .disabled-field {
+            background-color: #f8f9fa;
+            color: #6c757d;
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 20px;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Edit Student Information</h1>
+            <p>Update student details in the system</p>
+        </div>
+        
+        <div class="student-info" id="studentInfo" style="display: none;">
+            <h3>Current Student Information</h3>
+            <div class="info-item"><strong>Student ID:</strong> <span id="currentStudentId"></span></div>
+            <div class="info-item"><strong>Registration Date:</strong> <span id="registrationDate"></span></div>
+            <div class="info-item"><strong>Last Updated:</strong> <span id="lastUpdated"></span></div>
+            <div class="info-item"><strong>Status:</strong> <span id="currentStatus"></span></div>
+        </div>
+        
+        <form class="edit-form" id="editStudentForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="suspended">Suspended</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="newPassword">New Password (leave blank to keep current)</label>
+                <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password (optional)">
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm New Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password">
+            </div>
+            
+            <div class="btn-group">
+                <button type="submit" class="update-btn">Update Student</button>
+                <button type="button" class="cancel-btn" onclick="cancelEdit()">Cancel</button>
+            </div>
+            
+            <div class="loader" id="loader">
+                <div class="loader-spinner"></div>
+                <p style="margin-top: 10px; color: #666;">Updating student information...</p>
+            </div>
+            
+            <div class="success-message" id="successMessage"></div>
+            <div class="error-message" id="errorMessage"></div>
+        </form>
+    </div>
+
+    <script>
+        const API_BASE_URL = '/api';
+        let studentId = null;
+        
+        // Get student ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        studentId = urlParams.get('id');
+        
+        if (!studentId) {
+            alert('Student ID is required');
+            window.location.href = '/admin/manage_students.html';
+        }
+        
+        const editForm = document.getElementById('editStudentForm');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const loader = document.getElementById('loader');
+        const studentInfo = document.getElementById('studentInfo');
+        
+        // Load student data when page loads
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadStudentData();
+        });
+        
+        // Function to load existing student data
+        async function loadStudentData() {
+            try {
+                loader.style.display = 'block';
+                
+                const response = await fetch(`${API_BASE_URL}/admin/student/${studentId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Add authorization header if needed
+                        // 'Authorization': `Bearer ${getAuthToken()}`
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to load student data');
+                }
+                
+                const data = await response.json();
+                
+                if (!data.success) {
+                    throw new Error(data.message || 'Failed to load student data');
+                }
+                
+                const student = data.student;
+                
+                // Populate form fields
+                document.getElementById('firstName').value = student.firstName || '';
+                document.getElementById('lastName').value = student.lastName || '';
+                document.getElementById('email').value = student.email || '';
+                document.getElementById('status').value = student.status || 'active';
+                
+                // Show additional student info
+                document.getElementById('currentStudentId').textContent = student.studentId || 'N/A';
+                document.getElementById('registrationDate').textContent = 
+                    student.createdAt ? new Date(student.createdAt).toLocaleDateString() : 'N/A';
+                document.getElementById('lastUpdated').textContent = 
+                    student.updatedAt ? new Date(student.updatedAt).toLocaleDateString() : 'Never';
+                document.getElementById('currentStatus').textContent = 
+                    student.status ? student.status.charAt(0).toUpperCase() + student.status.slice(1) : 'Active';
+                
+                studentInfo.style.display = 'block';
+                loader.style.display = 'none';
+                
+            } catch (error) {
+                loader.style.display = 'none';
+                errorMessage.textContent = 'Failed to load student data: ' + error.message;
+                errorMessage.style.display = 'block';
+                console.error('Error loading student data:', error);
+            }
+        }
+        
+        // Handle form submission
+        editForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Hide any previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Get form data
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const status = document.getElementById('status').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validate required fields
+            if (!firstName || !lastName || !email) {
+                errorMessage.textContent = 'First name, last name, and email are required';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorMessage.textContent = 'Please enter a valid email address';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Validate password if provided
+            if (newPassword) {
+                if (newPassword.length < 6) {
+                    errorMessage.textContent = 'Password must be at least 6 characters long';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
+                if (newPassword !== confirmPassword) {
+                    errorMessage.textContent = 'Passwords do not match';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+            }
+            
+            // Show loader
+            loader.style.display = 'block';
+            
+            try {
+                // Prepare update data
+                const updateData = {
+                    firstName,
+                    lastName,
+                    email,
+                    status
+                };
+                
+                // Add password if provided
+                if (newPassword) {
+                    updateData.password = newPassword;
+                }
+                
+                console.log('Sending update request...', updateData);
+                
+                // Make API request to update student
+                const response = await fetch(`${API_BASE_URL}/admin/student/${studentId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Add authorization header if needed
+                        // 'Authorization': `Bearer ${getAuthToken()}`
+                    },
+                    body: JSON.stringify(updateData)
+                });
+                
+                const data = await response.json();
+                console.log('Update response:', data);
+                
+                // Hide loader
+                loader.style.display = 'none';
+                
+                if (!response.ok || !data.success) {
+                    // Show error message
+                    errorMessage.textContent = data.message || 'Update failed. Please try again.';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
+                // Show success message
+                successMessage.textContent = 'Student information updated successfully!';
+                successMessage.style.display = 'block';
+                
+                // Clear password fields
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
+                
+                // Refresh student info
+                await loadStudentData();
+                
+                // Auto-hide success message after 3 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
+                
+            } catch (error) {
+                // Hide loader
+                loader.style.display = 'none';
+                
+                // Show error message
+                errorMessage.textContent = 'Network error. Please check your connection and try again.';
+                errorMessage.style.display = 'block';
+                console.error('Error updating student:', error);
+            }
+        });
+        
+        // Cancel edit function
+        function cancelEdit() {
+            if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+                window.location.href = '/admin/manage_students.html';
+            }
+        }
+        
+        // Function to get auth token (implement based on your auth system)
+        // function getAuthToken() {
+        //     return localStorage.getItem('adminToken') || sessionStorage.getItem('adminToken');
+        // }
+    </script>
+</body>
+</html>

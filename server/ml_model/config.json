@@ -1,0 +1,1 @@
+{"model_type": "deberta-v2", "base_model": "microsoft/deberta-v3-base", "num_topics": 37, "hidden_size": 768}

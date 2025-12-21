@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Assessment Login Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e0eaff, #f4f7ff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Decorative Background Shapes */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.15;
+            filter: blur(20px);
+        }
+
+        body::before {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(45deg, #4a69bd, #3a55a3);
+            top: -150px;
+            left: -150px;
+        }
+
+        body::after {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, #ffafbd, #ffc3a0);
+            bottom: -100px;
+            right: -100px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .header {
+            /* Restored original margin for better spacing */
+            margin-bottom: 60px; 
+        }
+        
+        .header h1 {
+            color: #3a55a3;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #555;
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .login-options {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .login-card {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 350px;
+            padding: 40px 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 5px solid #3a55a3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            user-select: none;
+        }
+        
+        .login-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(58, 85, 163, 0.15);
+        }
+
+        .card-image {
+            width: 220px;
+            height: 170px;
+            object-fit: contain;
+            margin-bottom: 30px;
+        }
+        
+        .login-title {
+            font-size: 24px;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .login-description {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .login-btn {
+            background: linear-gradient(90deg, #4a69bd, #3a55a3);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(58, 85, 163, 0.3);
+        }
+        
+        .footer {
+            margin-top: 60px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .footer a {
+            color: #3a55a3;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 1200px) {
+            .login-options {
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+            .header p {
+                font-size: 16px;
+            }
+            .login-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            .login-card {
+                margin-bottom: 20px;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>English Assessment Portal</h1>
+            <p>Please select your role to continue to the assessment system.</p>
+        </div>
+        
+        <div class="login-options">
+            <div class="login-card">
+                <img src="student-vector.jpg" alt="Student Illustration" class="card-image">
+                <h2 class="login-title">Student Login</h2>
+                <p class="login-description">
+                    Access your English assessments, view results, and complete assignments. 
+                    Login with your student ID and password.
+                </p>
+                <a href="/student/login.html" class="login-btn" target="_self">Student Login</a>
+            </div>
+            
+            <div class="login-card">
+                <img src="faculty-vector.jpg" alt="Faculty Illustration" class="card-image">
+                <h2 class="login-title">Faculty Login</h2>
+                <p class="login-description">
+                    Create and manage assessments, grade submissions, and view student progress reports.
+                    Login with your faculty credentials.
+                </p>
+                <a href="/faculty/login.html" class="login-btn" target="_self">Faculty Login</a>
+            </div>
+            
+            <div class="login-card">
+                <img src="admin-vector.jpg" alt="Admin Illustration" class="card-image">
+                <h2 class="login-title">Admin Login</h2>
+                <p class="login-description">
+                    Manage faculty accounts, control system access, and oversee assessment administration.
+                    Login with administrator credentials.
+                </p>
+                <a href="/admin/login.html" class="login-btn" target="_self">Admin Login</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Need help? <a href="mailto:support@englishassessment.edu">Contact Support</a></p>
+            <p style="margin-top: 10px;">© 2025 English Assessment System. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
