@@ -2,8 +2,14 @@
 import sys
 import json
 import os
-import torch
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+try:
+    import torch
+    from transformers import AutoTokenizer, AutoModelForSequenceClassification
+except ImportError as e:
+    # If dependencies are missing, print fallback JSON and exit cleanly
+    print(json.dumps([{"topic": "General Grammar", "difficulty": 3, "error": f"Missing dependency: {str(e)}", "mock": True}]))
+    sys.exit(0)
 
 # Set up paths
 ScriptDir = os.path.dirname(os.path.abspath(__file__))
@@ -151,22 +157,25 @@ if __name__ == "__main__":
             print(json.dumps([]))
             sys.exit(0)
             
-        # Try to load model, fallback to mock if fails
+        # Try to load model
         try:
             tokenizer, model = load_model()
             results = predict(questions, tokenizer, model)
         except Exception as load_err:
-            # Fallback for user: Generate mock data so the flow doesn't break
-            # This is crucial if the user hasn't set up the python env or model correctly yet.
-            # print(json.dumps({"error": f"Model load failed: {str(load_err)}"}), file=sys.stderr)
-            import random
+            # IMPROVED ROBUSTNESS: 
+            # If model loads fails, we return a SAFE default (Medium difficulty) 
+            # rather than random, so we don't skew the test unfairly without knowing.
+            # We also log to stderr so the server knows something is wrong.
+            print(f"Model load failed: {str(load_err)}", file=sys.stderr)
+            
+            # Return neutral defaults
             results = []
-            topics = ["Subject Verb Agreement", "Tenses", "Articles", "Prepositions", "Adjectives", "Nouns", "Pronouns"]
             for q in questions:
                 results.append({
-                    "topic": random.choice(topics),
-                    "difficulty": random.randint(1, 5) if random.random() > 0.2 else 3, # Weighted towards 3
-                    "mock": True
+                    "topic": "General Grammar",
+                    "difficulty": 3, # Neutral difficulty
+                    "mock": True,
+                    "error": "Model unavailable"
                 })
         
         print(json.dumps(results))
@@ -174,5 +183,4 @@ if __name__ == "__main__":
     except Exception as e:
         # Final safety net
         print(json.dumps({"error": f"Unexpected error: {str(e)}"}), file=sys.stderr)
-        # Even here, try to output something valid for the JS to parse if possible, or just exit 1
         sys.exit(1)

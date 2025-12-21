@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,19 +35,19 @@
             box-sizing: border-box;
             font-family: var(--font-family);
         }
-        
+
         body {
             background-color: var(--bg-light);
             min-height: 100vh;
             color: var(--text-dark);
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-        
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -55,12 +56,12 @@
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 30px;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
         }
-        
+
         .logo-icon {
             width: 45px;
             height: 45px;
@@ -75,35 +76,35 @@
             font-weight: bold;
             box-shadow: 0 4px 10px rgba(102, 126, 234, 0.5);
         }
-        
+
         .logo-text h1 {
             color: var(--primary-purple-dark);
             font-size: 22px;
             margin-bottom: 0;
             font-weight: 700;
         }
-        
+
         .logo-text p {
             color: var(--text-light);
             font-size: 12px;
         }
-        
+
         .user-nav {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
+
         .user-info {
             text-align: right;
         }
-        
+
         .user-name {
             font-weight: 600;
             color: var(--text-dark);
             font-size: 15px;
         }
-        
+
         .user-role {
             color: var(--text-light);
             font-size: 12px;
@@ -114,33 +115,34 @@
             border: 1px solid #d0d0d0;
             color: var(--text-light);
             padding: 8px 15px;
-            border-radius: 20px; /* Pill shape */
+            border-radius: 20px;
+            /* Pill shape */
             cursor: pointer;
             font-size: 14px;
             font-weight: 600;
             transition: all 0.3s ease;
         }
-        
+
         .logout-btn:hover {
             background-color: var(--accent-orange);
             color: white;
             border-color: var(--accent-orange);
         }
-        
+
         .content {
             display: flex;
             gap: 30px;
         }
-        
+
         .sidebar {
             width: 250px;
             background: var(--card-bg);
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             height: fit-content;
         }
-        
+
         .sidebar-title {
             font-size: 18px;
             color: var(--primary-purple-dark);
@@ -149,7 +151,7 @@
             border-bottom: 1px solid var(--border-color);
             font-weight: 600;
         }
-        
+
         .menu-item {
             display: block;
             padding: 14px 20px;
@@ -161,41 +163,42 @@
             transition: all 0.3s ease;
             font-weight: 600;
         }
-        
+
         .menu-item:hover {
-            background-color: #f3e5f5; /* Light purple */
+            background-color: #f3e5f5;
+            /* Light purple */
             color: var(--primary-purple-dark);
             transform: translateX(5px);
         }
-        
+
         .menu-item.active {
             background: var(--primary-gradient);
             color: white;
             box-shadow: 0 4px 15px -5px rgba(102, 126, 234, 0.7);
             transform: translateX(5px);
         }
-        
+
         .main-content {
             flex: 1;
         }
-        
+
         .page-title {
             font-size: 28px;
             color: var(--primary-purple-dark);
             margin-bottom: 10px;
             font-weight: 700;
         }
-        
+
         .page-description {
             color: var(--text-light);
             font-size: 15px;
             margin-bottom: 30px;
         }
-        
+
         .card {
             background-color: var(--card-bg);
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             padding: 30px;
             margin-bottom: 30px;
             border-top: 5px solid;
@@ -204,11 +207,12 @@
             border-image-source: var(--primary-gradient);
             transition: all 0.3s ease;
         }
+
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
         }
-        
+
         .card-title {
             font-size: 20px;
             color: var(--primary-purple-dark);
@@ -217,14 +221,14 @@
             border-bottom: 1px solid var(--border-color);
             font-weight: 600;
         }
-        
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 25px;
             margin-bottom: 20px;
         }
-        
+
         .stat-card {
             background: linear-gradient(135deg, #f5f3ff, #ede7f6);
             border-radius: 12px;
@@ -238,7 +242,7 @@
             transform: translateY(-5px) scale(1.03);
             box-shadow: 0 15px 35px rgba(94, 53, 177, 0.15);
         }
-        
+
         .stat-value {
             font-size: 42px;
             font-weight: 700;
@@ -248,28 +252,29 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .stat-label {
             color: var(--text-secondary);
             font-size: 15px;
             font-weight: 500;
         }
-        
+
         .recent-activity {
             margin-top: 20px;
         }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        
-        th, td {
+
+        th,
+        td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #f0f0f0;
         }
-        
+
         th {
             color: var(--primary-purple);
             font-weight: 700;
@@ -277,7 +282,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
+
         td {
             color: var(--text-light);
             font-size: 14px;
@@ -286,11 +291,11 @@
         tbody tr:hover {
             background-color: #faf7ff;
         }
-        
+
         tr:last-child td {
             border-bottom: none;
         }
-        
+
         .action-btn {
             background: var(--primary-purple);
             color: white;
@@ -304,7 +309,7 @@
             text-decoration: none;
             display: inline-block;
         }
-        
+
         .action-btn:hover {
             background: var(--primary-purple-dark);
             transform: translateY(-2px);
@@ -315,11 +320,12 @@
             background-image: linear-gradient(to right, var(--danger-gradient-start), var(--danger-gradient-end));
             box-shadow: 0 4px 15px rgba(255, 94, 98, 0.25);
         }
+
         .delete-btn:hover {
             background-image: linear-gradient(to right, #e74c50, #f8864a);
             box-shadow: 0 7px 20px rgba(255, 94, 98, 0.35);
         }
-        
+
         .view-all {
             display: block;
             text-align: right;
@@ -330,43 +336,51 @@
             font-weight: 600;
             transition: color 0.3s ease;
         }
-        
+
         .view-all:hover {
             text-decoration: underline;
             color: var(--primary-purple-dark);
         }
-        
+
         .logout-spinner {
             display: inline-block;
             width: 12px;
             height: 12px;
-            border: 2px solid rgba(255,255,255,0.5);
+            border: 2px solid rgba(255, 255, 255, 0.5);
             border-top-color: white;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin-right: 5px;
         }
-        
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        
+
         @media (max-width: 992px) {
             .content {
                 flex-direction: column;
             }
+
             .sidebar {
                 width: 100%;
                 margin-bottom: 20px;
             }
         }
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
                 gap: 15px;
                 align-items: flex-start;
             }
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -375,6 +389,7 @@
         /* --- END OF UNIFIED CREATIVE STYLESHEET --- */
     </style>
 </head>
+
 <body>
     <div class="container">
         <header class="header">
@@ -393,20 +408,25 @@
                 <button class="logout-btn" id="logout-btn">Logout</button>
             </nav>
         </header>
-        
+
         <div class="content">
             <aside class="sidebar">
                 <h2 class="sidebar-title">Navigation</h2>
-                <a href="/faculty/dashboard.html" class="menu-item active">Dashboard</a>
-                <a href="/faculty/upload.html" class="menu-item">Upload Question Set</a>
-                <a href="/faculty/assessment-results.html" class="menu-item">View Results</a>
-                <a href="/faculty/student-report.html" class="menu-item">Student Reports</a>
+                <a href="/faculty/dashboard.html" class="menu-item active"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="/faculty/upload.html" class="menu-item"><i class="fas fa-upload"></i> Create Assessment</a>
+                <a href="/faculty/profile.html" class="menu-item"><i class="fas fa-user"></i> My Profile</a>
+                <a href="/faculty/assessment-results.html" class="menu-item"><i class="fas fa-chart-bar"></i> View
+                    Results</a>
+                <a href="/faculty/student-report.html" class="menu-item"><i class="fas fa-file-alt"></i> Student
+                    Reports</a>
+                <a href="#" id="logout-btn-sidebar" class="menu-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </aside>
-            
+
             <main class="main-content">
                 <h1 class="page-title">Faculty Dashboard</h1>
-                <p class="page-description">Welcome to the English Assessment faculty portal. View statistics and manage assessments.</p>
-                
+                <p class="page-description">Welcome to the English Assessment faculty portal. View statistics and manage
+                    assessments.</p>
+
                 <div class="card">
                     <h2 class="card-title">At a Glance</h2>
                     <div class="stats-grid">
@@ -424,7 +444,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="card">
                     <h2 class="card-title">Recent Assessments</h2>
                     <div class="recent-activity">
@@ -447,7 +467,7 @@
                     </div>
                     <a href="/faculty/all-assessments.html" class="view-all">View all assessments →</a>
                 </div>
-                
+
                 <div class="card">
                     <h2 class="card-title">Assessment Results</h2>
                     <div class="recent-activity">
@@ -472,7 +492,7 @@
             </main>
         </div>
     </div>
-    
+
     <script>
         // --- START OF AUTHENTICATION AND PAGE SETUP SCRIPT ---
         let isLoggedOut = false;
@@ -514,7 +534,7 @@
                 document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
             });
         }
-        
+
         function getAuthToken() {
             return sessionStorage.getItem('authToken') || sessionStorage.getItem('facultyToken') || localStorage.getItem('authToken') || localStorage.getItem('facultyToken') || getCookie('authToken') || getCookie('facultyToken');
         }
@@ -555,7 +575,9 @@
             const avgScoreElem = document.getElementById('avg-score');
 
             try {
-                const response = await fetch('/api/dashboard/stats');
+                const session = checkAuthentication();
+                const facultyId = session ? session.id : '';
+                const response = await fetch(`/api/dashboard/stats?facultyId=${facultyId}`);
                 if (!response.ok) throw new Error('Failed to fetch stats');
                 const data = await response.json();
 
@@ -572,17 +594,19 @@
                 avgScoreElem.textContent = 'N/A';
             }
         }
-        
+
         // Function to load recent assessments from the server
         async function loadRecentAssessments() {
             const tableBody = document.getElementById('assessment-table-body');
             tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center;">Loading assessments...</td></tr>`;
 
             try {
-                const response = await fetch('/api/assessment/all');
+                const session = checkAuthentication();
+                const facultyId = session ? session.id : '';
+                const response = await fetch(`/api/assessment/all?facultyId=${facultyId}`);
                 if (!response.ok) throw new Error('Failed to fetch assessments');
                 const assessments = await response.json();
-                
+
                 const recentAssessments = assessments.slice(0, 5);
 
                 if (recentAssessments.length > 0) {
@@ -590,7 +614,7 @@
                     recentAssessments.forEach(assessment => {
                         const createdDate = new Date(assessment.createdAt);
                         const formattedDate = !isNaN(createdDate) ? createdDate.toLocaleDateString() : 'Invalid Date';
-                        
+
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td>${assessment.title || 'Untitled Assessment'}</td>
@@ -611,7 +635,7 @@
                 tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center;">Error loading assessments.</td></tr>`;
             }
         }
-        
+
         // NEW Function to delete an assessment
         async function deleteAssessment(assessmentId) {
             if (!confirm('Are you sure you want to delete this assessment and all its attempts? This action cannot be undone.')) {
@@ -640,7 +664,10 @@
             tableBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">Loading results summary...</td></tr>`;
 
             try {
-                const response = await fetch('/api/assessment/results/summary');
+                const session = checkAuthentication();
+                const facultyId = session ? session.id : '';
+                // Use the new faculty-specific summary endpoint
+                const response = await fetch(`/api/faculty/summary?facultyId=${facultyId}`);
                 if (!response.ok) throw new Error('Failed to fetch results summary');
                 const data = await response.json();
 
@@ -669,9 +696,9 @@
                 tableBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">Error loading results.</td></tr>`;
             }
         }
-        
+
         // Enhanced page load handling
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const facultyData = checkAuthentication();
             if (!facultyData) return;
 
@@ -687,7 +714,7 @@
         // Event listeners for auth check
         window.addEventListener('pageshow', (event) => {
             if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
-                if(!checkAuthentication()) return;
+                if (!checkAuthentication()) return;
                 window.location.reload();
             }
         });
@@ -697,4 +724,5 @@
         window.addEventListener('beforeunload', () => clearInterval(authCheckInterval));
     </script>
 </body>
+
 </html>

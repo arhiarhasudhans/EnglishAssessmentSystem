@@ -1,11 +1,7 @@
-ÿþï»¿# Node
 node_modules/
-
-# Python
+.env
 venv/
 __pycache__/
 *.pyc
-
-# ML model weights
-server/ml_model/model.safetensors
-server/ml_model/*.safetensors
+.DS_Store
+.vscode/
