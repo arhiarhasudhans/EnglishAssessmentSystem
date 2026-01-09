@@ -172,8 +172,7 @@
                     // Get logged in user from Auth (checkAuthentication returns it)
                     const user = checkAuthentication('student');
                     const studentIdParam = user ? `?studentId=${user.studentId}` : '';
-
-                    const response = await fetch(`/api/assessment/verify/${code}${studentIdParam}`);
+                    const response = await fetch(`/api/verify/${code}${studentIdParam}`);
                     const data = await response.json();
 
                     if (response.ok) {
