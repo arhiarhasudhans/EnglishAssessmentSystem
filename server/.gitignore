@@ -1,0 +1,24 @@
+# Node
+node_modules/
+
+# Environment
+.env
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+
+# Bandit models (student-specific)
+bandit_models/
+bandit_models/*.pkl
+bandit_models/*.json
+
+# Optional: logs
+*.log

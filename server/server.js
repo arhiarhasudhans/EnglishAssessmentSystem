@@ -18,6 +18,8 @@ const studentRoutes = require('./routes/studentRoutes');
 const facultyRoutes = require('./routes/facultyRoutes');
 const assessmentRoutes = require('./routes/assessmentRoutes');
 const questionRoutes = require('./routes/questionRoutes');
+const testRoutes = require('./routes/testRoutes');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -56,7 +58,7 @@ async function initializeDatabase() {
         await pool.query(`ALTER TABLE assessments ADD COLUMN IF NOT EXISTS level TEXT`);
         await pool.query(`ALTER TABLE assessments ADD COLUMN IF NOT EXISTS pass_score INTEGER`);
         await pool.query(`ALTER TABLE assessments ADD COLUMN IF NOT EXISTS questions_to_attempt INTEGER`);
-        await pool.query(`CREATE TABLE IF NOT EXISTS student_assessments (id UUID PRIMARY KEY, student_id UUID REFERENCES students(id), assessment_id UUID REFERENCES assessments(id), start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, end_time TIMESTAMP, completed BOOLEAN DEFAULT FALSE, answers JSONB, score DECIMAL(5,2), time_spent INTEGER, UNIQUE(student_id, assessment_id))`);
+        await pool.query(`CREATE TABLE IF NOT EXISTS student_assessments (id UUID PRIMARY KEY, student_id UUID REFERENCES students(id), assessment_id UUID REFERENCES assessments(id), start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, end_time TIMESTAMP, completed BOOLEAN DEFAULT FALSE, answers JSONB, score DECIMAL(5,2), time_spent INTEGER, asked_questions JSONB, UNIQUE(student_id, assessment_id))`);
 
         // Add created_by column for faculty data filtering
         await pool.query(`ALTER TABLE assessments ADD COLUMN IF NOT EXISTS created_by UUID REFERENCES faculty(id) ON DELETE SET NULL`);
@@ -94,6 +96,7 @@ app.use('/api', studentRoutes(pool)); // /api/admin/student, /api/results/save
 app.use('/api', facultyRoutes(pool)); // /api/faculty
 app.use('/api', assessmentRoutes(pool)); // /api/assessment
 app.use('/api/questions', questionRoutes(pool)); // /api/questions/upload
+app.use('/api', testRoutes(pool));
 
 // Legacy/Admin Deactivate Routes - Refactored to adminRoutes
 
